@@ -4,8 +4,6 @@ create by: moahmed aldreamly
 
 #include <stdio.h>
 
-
-
 extern int main(void);
 
 void Reset_Handler();
@@ -17,17 +15,15 @@ void Default_Handler(){
 void NMI_Handler() __attribute__ ((weak,alias("Default_Handler")));
 void H_fault_Handler() __attribute__ ((weak,alias("Default_Handler")));
 
-//booking 1024B located by .bss through un inialized array ofint 256 Elment (256*4=1024)
+//booking 1024B located by .bss through un initialized array of int 256 Elment (256*4=1024)
 static unsigned long Stack_top[256];
 
-void (* g_p_fn_Vectors[])() __attribute__((section(".vectors"))) ={
-	(void (*)())	(Stack_top + sizeof(Stack_top)),
+void (* g_p_fn_Vectors[])()__attribute__((section(".vectors"))) ={
+	(void (*)())	((unsigned long)Stack_top +sizeof(Stack_top)),
 	&Reset_Handler,
 	&NMI_Handler,
-	&H_fault_Handler
-	
+	&H_fault_Handler,
 };
-
 extern unsigned int _E_text;
 extern unsigned int _S_DATA;
 extern unsigned int _E_DATA;
