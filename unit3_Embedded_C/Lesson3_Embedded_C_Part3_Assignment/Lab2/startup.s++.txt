@@ -1,8 +1,8 @@
-/* startup_cortexm3 
-create by mohamed aldreamly
-*/
+# startup_cortexm3 
+#create by mohamed aldreamly
 
-/* SRAM 0x20001000 */
+
+# SRAM 0x20001000 
 
 .section .vectors
 
