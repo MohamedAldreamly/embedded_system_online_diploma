@@ -8,7 +8,7 @@ SRC=$(wildcard *.c)#find all .c file
 OBJ=$(SRC:.c=.o)#replace .c file to .o 
 As=$(wildcard *.s)
 AsOBJ=$(As:.s=.o)
-Project_name=unit3_lab4_cortexM3
+Project_name=unit3_lab4_cortexM4
 
 all:$(Project_name).bin
 	@echo "=====Bilud is Done====="
