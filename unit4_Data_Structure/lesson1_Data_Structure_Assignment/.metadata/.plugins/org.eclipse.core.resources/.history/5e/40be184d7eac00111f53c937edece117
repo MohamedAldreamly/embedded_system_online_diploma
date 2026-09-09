@@ -1,0 +1,3 @@
+lifo.o: ../lifo.c ../lifo.h
+
+../lifo.h:

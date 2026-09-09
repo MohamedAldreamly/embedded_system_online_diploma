@@ -1,0 +1,22 @@
+/*
+ * lifo.c
+ *
+ *  Created on : 09 SEP 2026
+ *      Author: Mohamed Aldreamly
+ */
+
+#include "lifo.h"
+
+LIFO_status LIFO_Add_item (LIFO_status* lifo_buf , unsigned int item ){
+
+
+}
+LIFO_status LIFO_get_item (LIFO_status* lifo_buf , unsigned int* item ){
+
+
+}
+LIFO_status LIFO_init (LIFO_status* lifo_buf , unsigned int* buf , unsigned int length ){
+	lifo_buf->base = buf;
+
+}
+

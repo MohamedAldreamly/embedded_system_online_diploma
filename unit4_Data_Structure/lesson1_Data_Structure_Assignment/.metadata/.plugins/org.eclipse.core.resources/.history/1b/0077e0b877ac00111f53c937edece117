@@ -1,0 +1,18 @@
+/*
+ * main.c
+ *
+ *  Created on : 09 SEP 2026
+ *      Author: Mohamed Aldreamly
+ */
+
+#include "lifo.h"
+#include <stdio.h>
+
+unsigned int buffer1 [5];
+unsigned int buffer2 [5];
+
+int main (){
+	LIFO_Buf_t usrt_lifo ,I2C_lifo ;
+	LIFO_init(&uart_lifo , buffer1):
+	LIFO_init(&uart_I2C , buffer2):
+}

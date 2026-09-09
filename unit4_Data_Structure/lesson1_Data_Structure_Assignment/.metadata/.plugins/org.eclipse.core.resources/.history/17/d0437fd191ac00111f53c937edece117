@@ -1,0 +1,35 @@
+/*
+ * main.c
+ *
+ *  Created on : 09 SEP 2026
+ *      Author: Mohamed Aldreamly
+ */
+
+#include "fifo.h"
+
+int main (){
+
+	int i , temp;
+	FIFO_Buf_t FIFO_UART ;
+	if(FIFO_init(&FIFO_UART , uart_buffer, width1) == FIFO_no_error)
+		printf("fifo init ------DONE-----\n");
+
+	for(i =0;i <7; i++ ){
+		printf("FIFO Enqueue (%x) \n",i);
+		if(FIFO_enqueue(&FIFO_UART , i) == FIFO_no_error)
+			printf("fifo enqueue ------DONE-----\n");
+		else
+			printf("fifo enqueue ------filed-----\n");
+	}
+
+	FIFO_print(&FIFO_UART);
+
+	if(FIFO_dequeue(&FIFO_UART , &temp) == FIFO_no_error)
+			printf("fifo dequeue ------DONE-----\n");
+	if(FIFO_dequeue(&FIFO_UART , &temp) == FIFO_no_error)
+				printf("fifo dequeue ------DONE-----\n");
+
+	FIFO_print(&FIFO_UART);
+	}
+
+

@@ -61,7 +61,7 @@ Linker script and memory map
                 0x20000400                _E_bss = .
 LOAD main.o
 LOAD startup.o
-OUTPUT(unit3_lab4_cortexM3.elf elf32-littlearm)
+OUTPUT(unit3_lab4_cortexM4.elf elf32-littlearm)
 LOAD linker stubs
 
 .debug_info     0x00000000      0x21e

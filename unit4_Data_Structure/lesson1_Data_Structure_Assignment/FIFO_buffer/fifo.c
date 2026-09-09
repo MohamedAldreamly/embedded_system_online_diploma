@@ -1,0 +1,88 @@
+/*
+ * fifo.c
+ *
+ *  Created on : 09 SEP 2026
+ *      Author: Mohamed Aldreamly
+ */
+
+#include "fifo.h"
+
+FIFO_Buf_Status FIFO_init		(FIFO_Buf_t* fifo,  element_type* buf, unsigned int length){
+	if(buf == NULL)
+		return FIFO_null;
+
+	fifo->head = buf;
+	fifo->base = buf;
+	fifo->tail = buf;
+	fifo->count = 0;
+	fifo->length = length;
+	return FIFO_no_error;
+}
+
+
+FIFO_Buf_Status FIFO_enqueue	(FIFO_Buf_t* fifo,element_type item){
+	if(!fifo->head || !fifo->base || !fifo->tail)
+		return FIFO_null;
+	if (FIFO_IS_FULL(fifo) == FIFO_full)
+		return FIFO_full;
+
+	*(fifo->head) = item;
+	if (fifo->head == (fifo->base+(fifo->length*sizeof(element_type))))
+		fifo->head = fifo->base;
+	else
+		fifo->head++;
+
+	fifo->count++;
+	return FIFO_no_error;
+}
+
+FIFO_Buf_Status FIFO_dequeue	(FIFO_Buf_t* fifo,element_type* item){
+	if(!fifo->head || !fifo->base || !fifo->tail)
+			return FIFO_null;
+	if (fifo->count == 0 )
+		return FIFO_empty;
+
+	*item = *(fifo->tail);
+
+	if (fifo->tail == (fifo->base+(fifo->length*sizeof(element_type))))
+		fifo->tail = fifo->base;
+	else
+		fifo->tail++;
+
+	fifo->count--;
+	return FIFO_no_error;
+
+}
+
+FIFO_Buf_Status FIFO_IS_FULL	(FIFO_Buf_t* fifo){
+	if(!fifo->head || !fifo->base || !fifo->tail)
+			return FIFO_null;
+	if(fifo->count == fifo->length)
+		return FIFO_full;
+
+	return FIFO_no_error;
+}
+
+void FIFO_print 				(FIFO_Buf_t* fifo){
+	element_type* temp;
+	int i;
+	if(fifo->count==0)
+		printf("fifo is empty");
+	else{
+		temp = fifo->tail;
+		printf("\n====fifo_print=====\n");
+		for(i=0; i<fifo->count;i++){
+			printf("\t %X\n", *temp);
+			if (temp == (fifo->base+(fifo->length*sizeof(element_type))))
+					temp = fifo->base;
+				else
+					temp++;
+		}
+		printf("============\n");
+
+	}
+
+
+
+
+}

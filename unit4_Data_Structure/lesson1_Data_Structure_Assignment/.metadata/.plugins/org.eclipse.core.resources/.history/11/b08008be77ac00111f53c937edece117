@@ -1,0 +1,20 @@
+/*
+ * main.c
+ *
+ *  Created on : 09 SEP 2026
+ *      Author: Mohamed Aldreamly
+ */
+
+#include "lifo.h"
+#include <stdio.h>
+
+unsigned int buffer1 [5]; // 5*4 =20 byte
+
+int main (){
+	LIFO_Buf_t usrt_lifo ,I2C_lifo ;
+	//static allocation
+	LIFO_init(&uart_lifo , buffer1);
+	//dynamic allcotion
+	unsigned int* buffer2 = (unsigned int)* malloc(5 * sizeof (unsigned int));
+	LIFO_init(&I2C_lifo , buffer2);
+
