@@ -1,0 +1,25 @@
+/*
+ * linked_list.h
+ *
+ *  Created on : 10 SEP 2026
+ *      Author: Mohamed Aldreamly
+ */
+
+#ifndef LINKED_LIST_H_
+#define LINKED_LIST_H_
+
+#include <stdio.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
+#include <conio.h>
+
+//APPs
+void Get_Nth();
+void Get_Length();
+void Get_Nth_From_The_End();
+void Get_middle();
+void Detect_loop();
+void Reverse_List();
+
+#endif /* LINKED_LIST_H_ */

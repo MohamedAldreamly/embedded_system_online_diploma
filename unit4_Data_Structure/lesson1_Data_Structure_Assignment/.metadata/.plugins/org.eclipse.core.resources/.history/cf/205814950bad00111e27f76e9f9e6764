@@ -1,0 +1,58 @@
+/*
+ * linked_list.c
+ *
+ *  Created on : 10 SEP 2026
+ *      Author: Mohamed Aldreamly
+ */
+
+#include"linked_list.h"
+Get_Nth(){
+	char temp_text[40];
+	gets(temp_text);
+	struct SStudent* pCurrentStudent = gpFirstStudent;
+	int count =0 ;
+
+	if (gpFirstStudent==NULL){
+		DPRINTF ("\n Empty list");
+
+	while(atio(temp_text) == count){
+		pCurrentStudent = pCurrentStudent->PNextStudent;
+		count++;
+	}
+	DPRINTF("\n record number %d",count+1);
+	DPRINTF("\n \t ID: %d",pCurrentStudent->student.ID);
+	DPRINTF("\n \t name: %s",pCurrentStudent->student.name);
+	DPRINTF("\n \t ID: %f",pCurrentStudent->student.height);
+}
+
+
+Get_Length(){
+
+	int count=0;
+	struct SStudent* pCurrentStudent = gpFirstStudent;
+	if (gpFirstStudent==NULL){
+		DPRINTF ("\n Empty list");
+
+	while(gpFirstStudent!=NULL){
+		pCurrentStudent = pCurrentStudent->PNextStudent;
+		count++;
+	}
+	DPRINTF("\n record number %d",count);
+	DPRINTF("\n \t ID: %d",pCurrentStudent->student.ID);
+	DPRINTF("\n \t name: %s",pCurrentStudent->student.name);
+	DPRINTF("\n \t ID: %f",pCurrentStudent->student.height);
+}
+
+Get_Nth_From_The_End(){
+
+}
+Get_middle(){
+
+}
+Detect_loop(){
+
+}
+
+Reverse_List(){
+
+}

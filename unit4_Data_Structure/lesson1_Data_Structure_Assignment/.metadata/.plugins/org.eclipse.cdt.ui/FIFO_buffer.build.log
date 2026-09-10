@@ -1,7 +1,1 @@
-00:12:52 **** Incremental Build of configuration Debug for project FIFO_buffer ****
-Info: Internal Builder is used for build
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
-gcc -o FIFO_buffer.exe fifo.o main.o 
-
-00:12:54 Build Finished (took 1s.940ms)
-
+Info: Nothing to build for FIFO_buffer

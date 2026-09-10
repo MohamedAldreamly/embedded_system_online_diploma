@@ -1,8 +1,231 @@
-00:10:17 **** Incremental Build of configuration Debug for project FIFO_buffer ****
+21:06:53 **** Incremental Build of configuration Debug for project linked_list_student_project ****
 Info: Internal Builder is used for build
 gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
-gcc -o FIFO_buffer.exe fifo.o main.o 
-00:12:52 **** Incremental Build of configuration Debug for project FIFO_buffer ****
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o linked_list.o "..\\linked_list.c" 
+gcc -o linked_list_student_project.exe linked_list.o main.o 
+Info: Nothing to build for linked_list_student_project
+21:08:27 **** Incremental Build of configuration Debug for project linked_list_student_project ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o linked_list.o "..\\linked_list.c" 
+gcc -o linked_list_student_project.exe linked_list.o main.o 
+21:11:11 **** Incremental Build of configuration Debug for project linked_list_student_project ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o linked_list.o "..\\linked_list.c" 
+gcc -o linked_list_student_project.exe linked_list.o main.o 
+Info: Nothing to build for FIFO_buffer
+21:11:16 **** Incremental Build of configuration Debug for project LIFO_buffer ****
+make all 
+make: Nothing to be done for `all'.
+Info: Nothing to build for linked_list_student_project
+Info: Nothing to build for FIFO_buffer
+21:11:22 **** Incremental Build of configuration Debug for project LIFO_buffer ****
+make all 
+make: Nothing to be done for `all'.
+Info: Nothing to build for linked_list_student_project
+Info: Nothing to build for linked_list_student_project
+Info: Nothing to build for FIFO_buffer
+21:13:28 **** Incremental Build of configuration Debug for project LIFO_buffer ****
+make all 
+make: Nothing to be done for `all'.
+21:13:28 **** Incremental Build of configuration Debug for project linked_list_student_project ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o linked_list.o "..\\linked_list.c" 
+gcc -o linked_list_student_project.exe linked_list.o main.o 
+c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../../mingw32/bin/ld.exe: cannot open output file linked_list_student_project.exe: Permission denied
+collect2.exe: error: ld returned 1 exit status
+21:13:33 **** Incremental Build of configuration Debug for project linked_list_student_project ****
+Info: Internal Builder is used for build
+gcc -o linked_list_student_project.exe linked_list.o main.o 
+c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../../mingw32/bin/ld.exe: cannot open output file linked_list_student_project.exe: Permission denied
+collect2.exe: error: ld returned 1 exit status
+21:13:44 **** Incremental Build of configuration Debug for project linked_list_student_project ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o linked_list.o "..\\linked_list.c" 
+gcc -o linked_list_student_project.exe linked_list.o main.o 
+c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../../mingw32/bin/ld.exe: cannot open output file linked_list_student_project.exe: Permission denied
+collect2.exe: error: ld returned 1 exit status
+Info: Nothing to build for FIFO_buffer
+21:13:51 **** Incremental Build of configuration Debug for project LIFO_buffer ****
+make all 
+make: Nothing to be done for `all'.
+21:13:52 **** Incremental Build of configuration Debug for project linked_list_student_project ****
+Info: Internal Builder is used for build
+gcc -o linked_list_student_project.exe linked_list.o main.o 
+c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../../mingw32/bin/ld.exe: cannot open output file linked_list_student_project.exe: Permission denied
+collect2.exe: error: ld returned 1 exit status
+Info: Nothing to build for FIFO_buffer
+21:14:05 **** Incremental Build of configuration Debug for project LIFO_buffer ****
+make all 
+make: Nothing to be done for `all'.
+21:14:05 **** Incremental Build of configuration Debug for project linked_list_student_project ****
 Info: Internal Builder is used for build
 gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
-gcc -o FIFO_buffer.exe fifo.o main.o 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o linked_list.o "..\\linked_list.c" 
+gcc -o linked_list_student_project.exe linked_list.o main.o 
+Info: Nothing to build for linked_list_student_project
+Info: Nothing to build for FIFO_buffer
+21:15:46 **** Incremental Build of configuration Debug for project LIFO_buffer ****
+make all 
+make: Nothing to be done for `all'.
+21:15:47 **** Incremental Build of configuration Debug for project linked_list_student_project ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o linked_list.o "..\\linked_list.c" 
+..\linked_list.c: In function 'Get_Nth_From_The_End':
+..\linked_list.c:195:13: error: expected expression before '<' token
+   if (count=<nth){// dont move main_Ptr
+             ^
+..\linked_list.c:190:6: warning: unused variable 'nth' [-Wunused-variable]
+  int nth =atoi(temp_text) ;
+      ^~~
+Info: Nothing to build for FIFO_buffer
+21:16:08 **** Incremental Build of configuration Debug for project LIFO_buffer ****
+make all 
+make: Nothing to be done for `all'.
+21:16:08 **** Incremental Build of configuration Debug for project linked_list_student_project ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o linked_list.o "..\\linked_list.c" 
+gcc -o linked_list_student_project.exe linked_list.o main.o 
+Info: Nothing to build for linked_list_student_project
+Info: Nothing to build for FIFO_buffer
+21:19:25 **** Incremental Build of configuration Debug for project LIFO_buffer ****
+make all 
+make: Nothing to be done for `all'.
+21:19:26 **** Incremental Build of configuration Debug for project linked_list_student_project ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o linked_list.o "..\\linked_list.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c: In function 'main':
+..\main.c:56:4: error: a label can only be part of a statement and a declaration is not a statement
+    void Get_middle();
+    ^~~~
+Info: Nothing to build for FIFO_buffer
+21:19:33 **** Incremental Build of configuration Debug for project LIFO_buffer ****
+make all 
+make: Nothing to be done for `all'.
+21:19:34 **** Incremental Build of configuration Debug for project linked_list_student_project ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -o linked_list_student_project.exe linked_list.o main.o 
+Info: Nothing to build for linked_list_student_project
+Info: Nothing to build for FIFO_buffer
+21:21:58 **** Incremental Build of configuration Debug for project LIFO_buffer ****
+make all 
+make: Nothing to be done for `all'.
+21:21:58 **** Incremental Build of configuration Debug for project linked_list_student_project ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o linked_list.o "..\\linked_list.c" 
+gcc -o linked_list_student_project.exe linked_list.o main.o 
+c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../../mingw32/bin/ld.exe: cannot open output file linked_list_student_project.exe: Permission denied
+collect2.exe: error: ld returned 1 exit status
+21:22:01 **** Incremental Build of configuration Debug for project linked_list_student_project ****
+Info: Internal Builder is used for build
+gcc -o linked_list_student_project.exe linked_list.o main.o 
+c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../../mingw32/bin/ld.exe: cannot open output file linked_list_student_project.exe: Permission denied
+collect2.exe: error: ld returned 1 exit status
+Info: Nothing to build for FIFO_buffer
+21:22:07 **** Incremental Build of configuration Debug for project LIFO_buffer ****
+make all 
+make: Nothing to be done for `all'.
+21:22:07 **** Incremental Build of configuration Debug for project linked_list_student_project ****
+Info: Internal Builder is used for build
+gcc -o linked_list_student_project.exe linked_list.o main.o 
+c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../../mingw32/bin/ld.exe: cannot open output file linked_list_student_project.exe: Permission denied
+collect2.exe: error: ld returned 1 exit status
+Info: Nothing to build for FIFO_buffer
+21:22:14 **** Incremental Build of configuration Debug for project LIFO_buffer ****
+make all 
+make: Nothing to be done for `all'.
+21:22:14 **** Incremental Build of configuration Debug for project linked_list_student_project ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o linked_list.o "..\\linked_list.c" 
+gcc -o linked_list_student_project.exe linked_list.o main.o 
+Info: Nothing to build for linked_list_student_project
+Info: Nothing to build for FIFO_buffer
+21:24:50 **** Incremental Build of configuration Debug for project LIFO_buffer ****
+make all 
+make: Nothing to be done for `all'.
+21:24:51 **** Incremental Build of configuration Debug for project linked_list_student_project ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o linked_list.o "..\\linked_list.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -o linked_list_student_project.exe linked_list.o main.o 
+Info: Nothing to build for linked_list_student_project
+Info: Nothing to build for linked_list_student_project
+Info: Nothing to build for FIFO_buffer
+21:28:52 **** Incremental Build of configuration Debug for project LIFO_buffer ****
+make all 
+make: Nothing to be done for `all'.
+21:28:53 **** Incremental Build of configuration Debug for project linked_list_student_project ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o linked_list.o "..\\linked_list.c" 
+gcc -o linked_list_student_project.exe linked_list.o main.o 
+Info: Nothing to build for linked_list_student_project
+00:34:52 **** Incremental Build of configuration Debug for project linked_list_student_project ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o linked_list.o "..\\linked_list.c" 
+gcc -o linked_list_student_project.exe linked_list.o main.o 
+Info: Nothing to build for linked_list_student_project
+Info: Nothing to build for linked_list_student_project
+Info: Nothing to build for linked_list_student_project
+Info: Nothing to build for linked_list_student_project
+Info: Nothing to build for linked_list_student_project
+Info: Nothing to build for linked_list_student_project
+00:43:10 **** Incremental Build of configuration Debug for project linked_list_student_project ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o linked_list.o "..\\linked_list.c" 
+..\linked_list.c:235:6: error: redefinition of 'Detect_loop'
+ void Detect_loop(){
+      ^~~~~~~~~~~
+..\linked_list.c:211:6: note: previous definition of 'Detect_loop' was here
+ void Detect_loop(){
+      ^~~~~~~~~~~
+Info: Nothing to build for FIFO_buffer
+00:45:12 **** Incremental Build of configuration Debug for project LIFO_buffer ****
+make all 
+make: Nothing to be done for `all'.
+00:45:12 **** Incremental Build of configuration Debug for project linked_list_student_project ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o linked_list.o "..\\linked_list.c" 
+..\linked_list.c:237:6: error: redefinition of 'Detect_loop'
+ void Detect_loop(){
+      ^~~~~~~~~~~
+..\linked_list.c:213:6: note: previous definition of 'Detect_loop' was here
+ void Detect_loop(){
+      ^~~~~~~~~~~
+Info: Nothing to build for FIFO_buffer
+00:46:24 **** Incremental Build of configuration Debug for project LIFO_buffer ****
+make all 
+make: Nothing to be done for `all'.
+00:46:24 **** Incremental Build of configuration Debug for project linked_list_student_project ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o linked_list.o "..\\linked_list.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -o linked_list_student_project.exe linked_list.o main.o 
+c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../../mingw32/bin/ld.exe: cannot open output file linked_list_student_project.exe: Permission denied
+collect2.exe: error: ld returned 1 exit status
+Info: Nothing to build for FIFO_buffer
+00:46:33 **** Incremental Build of configuration Debug for project LIFO_buffer ****
+make all 
+make: Nothing to be done for `all'.
+00:46:33 **** Incremental Build of configuration Debug for project linked_list_student_project ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o linked_list.o "..\\linked_list.c" 
+gcc -o linked_list_student_project.exe linked_list.o main.o 
+main.o: In function `main':
+F:\embedded_system_online_diploma\unit4_Data_Structure\lesson1_Data_Structure_Assignment\linked_list_student_project\Debug/../main.c:59: undefined reference to `Get_middle'
+collect2.exe: error: ld returned 1 exit status
+Info: Nothing to build for FIFO_buffer
+00:47:16 **** Incremental Build of configuration Debug for project LIFO_buffer ****
+make all 
+make: Nothing to be done for `all'.
+00:47:17 **** Incremental Build of configuration Debug for project linked_list_student_project ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o linked_list.o "..\\linked_list.c" 
+gcc -o linked_list_student_project.exe linked_list.o main.o 
+Info: Nothing to build for linked_list_student_project
+Info: Nothing to build for linked_list_student_project
+Info: Nothing to build for linked_list_student_project

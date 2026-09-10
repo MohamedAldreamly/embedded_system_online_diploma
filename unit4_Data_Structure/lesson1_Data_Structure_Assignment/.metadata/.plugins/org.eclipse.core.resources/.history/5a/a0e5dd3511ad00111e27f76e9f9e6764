@@ -1,0 +1,142 @@
+/*
+ * linked_list.c
+ *
+ *  Created on : 10 SEP 2026
+ *      Author: Mohamed Aldreamly
+ */
+
+#include"linked_list.h"
+void Get_Nth(){
+	char temp_text[40];
+	gets(temp_text);
+	struct SStudent* pCurrentStudent = gpFirstStudent;
+	int count =0 ;
+
+	if (gpFirstStudent==NULL)
+		DPRINTF ("\n Empty list");
+
+	while(count < atoi(temp_text)){
+		pCurrentStudent = pCurrentStudent->pNextStudent;
+		count++;
+	}
+	DPRINTF("\n record number %d",count+1);
+	DPRINTF("\n \t ID: %d",pCurrentStudent->student.ID);
+	DPRINTF("\n \t name: %s",pCurrentStudent->student.name);
+	DPRINTF("\n \t height: %f",pCurrentStudent->student.height);
+}
+
+
+void Get_Length(){
+
+	int count=0;
+	struct SStudent* pCurrentStudent = gpFirstStudent;
+	if (gpFirstStudent==NULL)
+		DPRINTF ("\n Empty list");
+
+	while(pCurrentStudent!=NULL){
+		pCurrentStudent = pCurrentStudent->pNextStudent;
+		count++;
+	}
+	DPRINTF("\n record number %d",count);
+	DPRINTF("\n \t ID: %d",pCurrentStudent->student.ID);
+	DPRINTF("\n \t name: %s",pCurrentStudent->student.name);
+	DPRINTF("\n \t height: %f",pCurrentStudent->student.height);
+}
+
+void Get_Nth_From_The_End(){
+	struct SStudent* main_Ptr = gpFirstStudent;
+	struct SStudent* ref_Ptr = gpFirstStudent;
+	if (gpFirstStudent==NULL)
+		DPRINTF ("\n Empty list");
+
+	char temp_text[40];
+	gets(temp_text);
+	int nth =atoi(temp_text) ;
+	int count= 0;
+
+	while (ref_Ptr!=NULL ){
+
+		if (count<nth){// dont move main_Ptr
+			ref_Ptr =ref_Ptr->pNextStudent;
+			count++;
+		}else // move main_Ptr
+		{
+			ref_Ptr =ref_Ptr->pNextStudent;
+			main_Ptr =main_Ptr->pNextStudent;
+		}
+		count++;
+
+	}
+	DPRINTF("\n record number %d",count++);
+	DPRINTF("\n \t ID: %d",main_Ptr->student.ID);
+	DPRINTF("\n \t name: %s",main_Ptr->student.name);
+	DPRINTF("\n \t height: %f",main_Ptr->student.height);
+
+}
+
+
+void Get_middle(){
+	int count;
+	struct SStudent* main_Ptr = gpFirstStudent;
+	struct SStudent* ref_Ptr = gpFirstStudent;
+	if (gpFirstStudent==NULL)
+			DPRINTF ("\n Empty list");
+
+	while (ref_Ptr!=NULL ){
+
+		ref_Ptr =ref_Ptr->pNextStudent->pNextStudent;
+		main_Ptr =main_Ptr->pNextStudent;
+		count++;
+	}
+
+	DPRINTF("\n record number %d",count+1);
+	DPRINTF("\n \t ID: %d",main_Ptr->student.ID);
+	DPRINTF("\n \t name: %s",main_Ptr->student.name);
+	DPRINTF("\n \t height: %f",main_Ptr->student.height);
+
+}
+
+void Detect_loop(){
+	int count;
+	struct SStudent* main_Ptr = gpFirstStudent;
+	struct SStudent* ref_Ptr = gpFirstStudent;
+	if (gpFirstStudent==NULL)
+			DPRINTF ("\n Empty list");
+
+	while (ref_Ptr!=NULL ){
+		ref_Ptr =ref_Ptr->pNextStudent->pNextStudent;
+		main_Ptr =main_Ptr->pNextStudent;
+		count++;
+
+		if (ref_Ptr==main_Ptr){
+			DPRINTF("\n record number %d",count+1);
+			DPRINTF("\n \t ID: %d",main_Ptr->student.ID);
+			DPRINTF("\n \t name: %s",main_Ptr->student.name);
+			DPRINTF("\n \t height: %f",main_Ptr->student.height);
+		}else
+		{
+			DPRINTF("no loop");
+		}
+	}
+}
+
+void Reverse_List(){
+	struct SStudent* prev_Ptr = NULL;
+	struct SStudent* curr_Ptr = gpFirstStudent;
+	struct SStudent* next_Ptr = curr_Ptr->pNextStudent;
+
+	if (gpFirstStudent==NULL)
+			DPRINTF ("\n Empty list");
+
+	while(curr_Ptr->pNextStudent!=NULL){
+
+		curr_Ptr->pNextStudent = prev_Ptr;
+		prev_Ptr = curr_Ptr;
+		curr_Ptr = next_Ptr;
+		next_Ptr = curr_Ptr->pNextStudent;
+	}
+
+	DPRINTF("\n \t ID: %d",pCurrentStudent->student.ID);
+	DPRINTF("\n \t name: %s",pCurrentStudent->student.name);
+	DPRINTF("\n \t h: %f",pCurrentStudent->student.height);
+}

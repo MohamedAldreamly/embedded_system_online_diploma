@@ -1,0 +1,171 @@
+/*
+ * main.c
+ *
+ *  Created on : 10 SEP 2026
+ *      Author: Mohamed Aldreamly
+ */
+
+#include <stdio.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
+#include <conio.h>
+
+//effective data
+struct Sdata{
+	int ID;
+	char name[40];
+	float height;
+};
+
+//linked list node
+struct SStudent{
+	struct Sdata student;
+	struct SStudent* PNextStudent;
+};
+
+struct SStudent* gpFirstStudent=NULL;
+
+void AddStudent(){
+	char temp_text[40];
+	struct SStudent* pNewStudent;
+	struct SStudent* pLastStudent;
+	//check list is empty == yes
+	if(gpFirstStudent == NULL){
+		//create new record
+		pNewStudent = (struct SStudent*) malloc(sizeof(SStudent));
+		//assign it to gpfirst
+		gpFirstStudent = pNewStudent ;
+	}else//list contains records
+	{
+		//navigate until reach to the last record
+		pLastStudent = gpFirstStudent;
+		while(pLastStudent->PNextStudent)
+			pLastStudent=pLastStudent->PNextStudent;
+
+		//create new record
+		pNewStudent = (struct SStudent*) malloc(sizeof(SStudent));
+		pNewStudent->PNextStudent =pNewStudent;
+
+	}
+
+	//fill the new record
+	printf("\n Enter the ID: ");
+	gets(temp_text);
+	pNewStudent->student.ID = atoi (temp_text);
+
+	printf("\n Enter the name: ");
+	gets(pNewStudent->student.name);
+
+	printf("\n Enter the height: ");
+	gets(temp_text);
+	pNewStudent->student.height = atoi (temp_text);
+
+
+	//set the next pointer (new_student) null
+	pNewStudent->PNextStudent = NULL;
+}
+
+int delete_student(){
+	char temp_text[40];
+	unsigned int selected_id;
+	//get the student ID
+	printf("\n Enter the ID student to be deleted: ");
+	gets(temp_text);
+	selected_id = atoi (temp_text);
+
+	//list is not empty
+	if (gpFirstStudent)
+	{
+		struct SStudent* pPreviousStudent = gpFirstStudent ;
+		struct SStudent* pPreviousStudent = NULL;
+		//loop on all records
+		while (pSelectedStudent){
+			//compare each Node with the selected ID
+			if(pSelectedStudent->student.ID == selected_id){
+				if (pPreviousStudent){
+
+					pPreviousStudent->PNextStudent = pSelectedStudent->PNextStudent;
+
+				}else// 1st student == ID
+				{
+					gpFirstStudent = pSelectedStudent->PNextStudent;
+				}
+				free(pSelectedStudent);
+				//pSelectedStudent->PNextStudent = NULL;
+				return 1;
+
+			}
+			pPreviousStudent = pSelectedStudent;
+			pSelectedStudent = pSelectedStudent->PNextStudent;
+			}
+		printf("\n cannot find student ID ");
+		}
+}
+
+void view_students(){
+	struct SStudent* pCurrentStudent = gpFirstStudent;
+	int counnt = 0 ;
+	if (gpFirstStudent==NULL)
+		printf ("\n Empty list");
+	else
+	{
+		while(pCurrentStudent){
+			printf("\n record number %d",count+1);
+			printf("\n \t ID: %d",pCurrentStudent->student.ID);
+			printf("\n \t name: %s",pCurrentStudent->student.name);
+			printf("\n \t ID: %f",pCurrentStudent->student.height);
+			pCurrentStudent = pCurrentStudent->PNextStudent;
+			count++;
+		}
+	}
+}
+
+void DeleteALL(){
+	struct SStudent* pCurrentStudent = gpFirstStudent;
+	if (gpFirstStudent==NULL)
+		printf ("\n Empty list");
+	else
+	{
+		while(pCurrentStudent){
+			struct SStudent* pTempStudent = pCurrentStudent;
+			pCurrentStudent = pCurrentStudent->PNextStudent;
+			free(pTempStudent);
+			//pTempStudent->PNextStudent = NULL;
+		}
+		pCurrentStudent = NULL;
+	}
+}
+
+void main(){
+	char temp_text[40];
+	while(1){
+
+		printf("\n=================");
+		printf("\n\t Choose on of the following Options \n");
+		printf("\n 1: AddStudent	");
+		printf("\n 2: Delete_Student	");
+		printf("\n 3: view_students	");
+		printf("\n 4: DeleteAll	");
+		printf("\n Enter Option Nember: ");
+
+		gets(temp_text);
+		printf("\n=================");
+
+		case 1:
+			AddStudent();
+			break;
+		case 2:
+			delete_student();
+			break;
+		case 3:
+			view_students();
+			break;
+		case 4:
+			DeleteALL();
+			break;
+
+
+	}
+
+}

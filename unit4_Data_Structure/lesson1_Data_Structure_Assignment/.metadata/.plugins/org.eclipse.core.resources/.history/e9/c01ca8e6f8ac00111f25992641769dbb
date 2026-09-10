@@ -1,0 +1,99 @@
+/*
+ * main.c
+ *
+ *  Created on : 10 SEP 2026
+ *      Author: Mohamed Aldreamly
+ */
+
+#include <stdio.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
+#include <conio.h>
+
+//effective data
+struct Sdata{
+	int ID;
+	char name[40];
+	float height;
+};
+
+//linked list node
+struct SStudent{
+	struct Sdata student;
+	struct SStudent* PNextStudent;
+};
+
+struct SStudent* gpFirstStudent=NULL;
+
+void AddStudent(){
+	char temp_text[40];
+	struct SStudent* pNewStudent;
+	struct SStudent* pLastStudent;
+	//check list is empty == yes
+	if(gpFirstStudent == NULL){
+		//create new record
+		pNewStudent = (struct SStudent*) malloc(sizeof(SStudent));
+		//assign it to gpfirst
+		gpFirstStudent = pNewStudent ;
+	}else//list contains records
+	{
+		//navigate until reach to the last record
+		pLastStudent = gpFirstStudent;
+		while(pLastStudent->PNextStudent)
+			pLastStudent=pLastStudent->PNextStudent;
+
+		//create new record
+		pNewStudent = (struct SStudent*) malloc(sizeof(SStudent));
+		pNewStudent->PNextStudent =pNewStudent;
+
+	}
+
+	//fill the new record
+	printf("\n Enter the ID: ");
+	gets(temp_text);
+	pNewStudent->student.ID = atoi (temp_text);
+
+	printf("\n Enter the name: ");
+	gets(pNewStudent->student.name);
+
+	printf("\n Enter the height: ");
+	gets(temp_text);
+	pNewStudent->student.height = atoi (temp_text);
+
+
+	//set the next pointer (new_student) null
+	pNewStudent->PNextStudent = NULL;
+}
+
+void delete_student(){
+	char temp_text[40];
+	unsigned int selected_id;
+	//get the student ID
+	printf("\n Enter the ID student to be deleted: ");
+	gets(temp_text);
+	selected_id = atoi (temp_text);
+
+	//list is not empty
+	if (gpFirstStudent)
+	{
+		struct SStudent* pSelectedStudent = gpFirstStudent ;
+		struct SStudent* pPreviousStudent = NULL;
+		//loop on all records
+		while (pSelectedStudent){
+		//compare each Node with the selected ID
+		if(pSelectedStudent->student.ID == selected_id){
+			if (pPreviousStudent){
+
+			}else// 1st student == ID
+			{
+				gpFirstStudent = pSelectedStudent->PNextStudent;
+			}
+			free(pSelectedStudent);
+			pSelectedStudent->PNextStudent = NULL;
+		}
+		}
+
+	}
+}
+

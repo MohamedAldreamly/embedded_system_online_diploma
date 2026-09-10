@@ -1,0 +1,41 @@
+/*
+ * main.c
+ *
+ *  Created on : 10 SEP 2026
+ *      Author: Mohamed Aldreamly
+ */
+
+#include "linked_list.h"
+
+int main(){
+	char temp_text[40];
+	while(1){
+
+		DPRINTF("\n=================");
+		DPRINTF("\n\t Choose on of the following Options \n");
+		DPRINTF("\n 1: AddStudent	");
+		DPRINTF("\n 2: Delete_Student	");
+		DPRINTF("\n 3: view_students	");
+		DPRINTF("\n 4: DeleteAll	");
+		DPRINTF("\n Enter Option Nember: ");
+
+		gets(temp_text);
+		DPRINTF("\n=================");
+
+		switch (atoi(temp_text))
+		{
+		case 1:
+			AddStudent();
+			break;
+		case 2:
+			delete_student();
+			break;
+		case 3:
+			view_students();
+			break;
+		case 4:
+			DeleteALL();
+			break;
+		}
+	}
+}
