@@ -1,0 +1,452 @@
+Info: Nothing to build for uint4_collision_avoidance
+Info: Nothing to build for uint4_collision_avoidance
+Info: Nothing to build for uint4_collision_avoidance
+14:01:07 **** Incremental Build of configuration Debug for project uint4_collision_avoidance ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -o uint4_collision_avoidance.exe CA.o main.o 
+c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../../mingw32/bin/ld.exe: cannot open output file uint4_collision_avoidance.exe: Permission denied
+collect2.exe: error: ld returned 1 exit status
+14:01:22 **** Incremental Build of configuration Debug for project uint4_collision_avoidance ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o CA.o "..\\CA.c" 
+..\CA.c: In function 'US_Get_distance_random':
+..\CA.c:52:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+gcc -o uint4_collision_avoidance.exe CA.o main.o 
+Info: Nothing to build for uint4_collision_avoidance
+14:03:45 **** Incremental Build of configuration Debug for project uint4_collision_avoidance ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o CA.o "..\\CA.c" 
+..\CA.c: In function 'US_Get_distance_random':
+..\CA.c:52:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+gcc -o uint4_collision_avoidance.exe CA.o main.o 
+Info: Nothing to build for uint4_collision_avoidance
+21:05:52 **** Rebuild of configuration Debug for project uint4_collision_avoidance_multi_block ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o DC_motor.o "..\\DC_motor.c" 
+In file included from ..\DC_motor.c:7:0:
+..\DC_motor.h:22:1: warning: data definition has no type or storage class
+ DC_init ();
+ ^~~~~~~
+..\DC_motor.h:22:1: warning: type defaults to 'int' in declaration of 'DC_init' [-Wimplicit-int]
+..\DC_motor.c:9:1: warning: data definition has no type or storage class
+ DC_speed = 0;
+ ^~~~~~~~
+..\DC_motor.c:9:1: warning: type defaults to 'int' in declaration of 'DC_speed' [-Wimplicit-int]
+..\DC_motor.c:22:6: error: conflicting types for 'DC_init'
+ void DC_init(){
+      ^~~~~~~
+In file included from ..\DC_motor.c:7:0:
+..\DC_motor.h:22:1: note: previous declaration of 'DC_init' was here
+ DC_init ();
+ ^~~~~~~
+..\DC_motor.c: In function 'ST_DC_ideal':
+..\DC_motor.c:34:37: warning: format '%d' expects a matching 'int' argument [-Wformat=]
+  printf("DC_ideal State: DC_speed= %d\n" );
+                                     ^
+..\DC_motor.c: In function 'ST_DC_busy':
+..\DC_motor.c:42:36: warning: format '%d' expects a matching 'int' argument [-Wformat=]
+  printf("DC_busy State: DC_speed= %d\n" );
+                                    ^
+Info: Nothing to build for uint4_collision_avoidance
+21:06:20 **** Incremental Build of configuration Debug for project uint4_collision_avoidance_multi_block ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o DC_motor.o "..\\DC_motor.c" 
+..\DC_motor.c:9:1: warning: data definition has no type or storage class
+ DC_speed = 0;
+ ^~~~~~~~
+..\DC_motor.c:9:1: warning: type defaults to 'int' in declaration of 'DC_speed' [-Wimplicit-int]
+..\DC_motor.c: In function 'ST_DC_ideal':
+..\DC_motor.c:34:37: warning: format '%d' expects a matching 'int' argument [-Wformat=]
+  printf("DC_ideal State: DC_speed= %d\n" );
+                                     ^
+..\DC_motor.c: In function 'ST_DC_busy':
+..\DC_motor.c:42:36: warning: format '%d' expects a matching 'int' argument [-Wformat=]
+  printf("DC_busy State: DC_speed= %d\n" );
+                                    ^
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o CA.o "..\\CA.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c: In function 'setup':
+..\main.c:16:2: warning: implicit declaration of function 'US_init' [-Wimplicit-function-declaration]
+  US_init();
+  ^~~~~~~
+..\main.c:17:2: warning: implicit declaration of function 'DC_init' [-Wimplicit-function-declaration]
+  DC_init();
+  ^~~~~~~
+..\main.c:20:2: error: 'US_state' undeclared (first use in this function)
+  US_state = STATE(US_busy);
+  ^~~~~~~~
+..\main.c:20:2: note: each undeclared identifier is reported only once for each function it appears in
+In file included from ..\CA.h:13:0,
+                 from ..\main.c:8:
+..\state.h:12:27: error: 'ST_US_busy' undeclared (first use in this function)
+ #define STATE(_stateFUN_) ST_##_stateFUN_
+                           ^
+..\main.c:20:13: note: in expansion of macro 'STATE'
+  US_state = STATE(US_busy);
+             ^~~~~
+..\main.c:21:2: error: 'DC_state' undeclared (first use in this function)
+  DC_state = STATE(DC_ideal);
+  ^~~~~~~~
+In file included from ..\CA.h:13:0,
+                 from ..\main.c:8:
+..\state.h:12:27: error: 'ST_DC_ideal' undeclared (first use in this function)
+ #define STATE(_stateFUN_) ST_##_stateFUN_
+                           ^
+..\main.c:21:13: note: in expansion of macro 'STATE'
+  DC_state = STATE(DC_ideal);
+             ^~~~~
+..\main.c: In function 'main':
+..\main.c:29:3: warning: implicit declaration of function 'US_state' [-Wimplicit-function-declaration]
+   US_state();
+   ^~~~~~~~
+..\main.c:31:3: warning: implicit declaration of function 'DC_state' [-Wimplicit-function-declaration]
+   DC_state();
+   ^~~~~~~~
+Info: Nothing to build for uint4_collision_avoidance
+21:06:48 **** Incremental Build of configuration Debug for project uint4_collision_avoidance_multi_block ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o DC_motor.o "..\\DC_motor.c" 
+..\DC_motor.c:9:1: warning: data definition has no type or storage class
+ DC_speed = 0;
+ ^~~~~~~~
+..\DC_motor.c:9:1: warning: type defaults to 'int' in declaration of 'DC_speed' [-Wimplicit-int]
+..\DC_motor.c: In function 'ST_DC_ideal':
+..\DC_motor.c:34:37: warning: format '%d' expects a matching 'int' argument [-Wformat=]
+  printf("DC_ideal State: DC_speed= %d\n" );
+                                     ^
+..\DC_motor.c: In function 'ST_DC_busy':
+..\DC_motor.c:42:36: warning: format '%d' expects a matching 'int' argument [-Wformat=]
+  printf("DC_busy State: DC_speed= %d\n" );
+                                    ^
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c: In function 'setup':
+..\main.c:16:2: warning: implicit declaration of function 'US_init' [-Wimplicit-function-declaration]
+  US_init();
+  ^~~~~~~
+..\main.c:17:2: warning: implicit declaration of function 'DC_init' [-Wimplicit-function-declaration]
+  DC_init();
+  ^~~~~~~
+..\main.c:20:2: error: 'US_state' undeclared (first use in this function)
+  US_state = STATE(US_busy);
+  ^~~~~~~~
+..\main.c:20:2: note: each undeclared identifier is reported only once for each function it appears in
+In file included from ..\CA.h:13:0,
+                 from ..\main.c:8:
+..\state.h:12:27: error: 'ST_US_busy' undeclared (first use in this function)
+ #define STATE(_stateFUN_) ST_##_stateFUN_
+                           ^
+..\main.c:20:13: note: in expansion of macro 'STATE'
+  US_state = STATE(US_busy);
+             ^~~~~
+..\main.c:21:2: error: 'DC_state' undeclared (first use in this function)
+  DC_state = STATE(DC_ideal);
+  ^~~~~~~~
+In file included from ..\CA.h:13:0,
+                 from ..\main.c:8:
+..\state.h:12:27: error: 'ST_DC_ideal' undeclared (first use in this function)
+ #define STATE(_stateFUN_) ST_##_stateFUN_
+                           ^
+..\main.c:21:13: note: in expansion of macro 'STATE'
+  DC_state = STATE(DC_ideal);
+             ^~~~~
+..\main.c: In function 'main':
+..\main.c:29:3: warning: implicit declaration of function 'US_state' [-Wimplicit-function-declaration]
+   US_state();
+   ^~~~~~~~
+..\main.c:31:3: warning: implicit declaration of function 'DC_state' [-Wimplicit-function-declaration]
+   DC_state();
+   ^~~~~~~~
+Info: Nothing to build for uint4_collision_avoidance
+21:07:08 **** Incremental Build of configuration Debug for project uint4_collision_avoidance_multi_block ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c: In function 'setup':
+..\main.c:16:2: warning: implicit declaration of function 'US_init' [-Wimplicit-function-declaration]
+  US_init();
+  ^~~~~~~
+..\main.c:17:2: warning: implicit declaration of function 'DC_init' [-Wimplicit-function-declaration]
+  DC_init();
+  ^~~~~~~
+..\main.c:20:2: error: 'US_state' undeclared (first use in this function)
+  US_state = STATE(US_busy);
+  ^~~~~~~~
+..\main.c:20:2: note: each undeclared identifier is reported only once for each function it appears in
+In file included from ..\CA.h:13:0,
+                 from ..\main.c:8:
+..\state.h:12:27: error: 'ST_US_busy' undeclared (first use in this function)
+ #define STATE(_stateFUN_) ST_##_stateFUN_
+                           ^
+..\main.c:20:13: note: in expansion of macro 'STATE'
+  US_state = STATE(US_busy);
+             ^~~~~
+..\main.c:21:2: error: 'DC_state' undeclared (first use in this function)
+  DC_state = STATE(DC_ideal);
+  ^~~~~~~~
+In file included from ..\CA.h:13:0,
+                 from ..\main.c:8:
+..\state.h:12:27: error: 'ST_DC_ideal' undeclared (first use in this function)
+ #define STATE(_stateFUN_) ST_##_stateFUN_
+                           ^
+..\main.c:21:13: note: in expansion of macro 'STATE'
+  DC_state = STATE(DC_ideal);
+             ^~~~~
+..\main.c: In function 'main':
+..\main.c:29:3: warning: implicit declaration of function 'US_state' [-Wimplicit-function-declaration]
+   US_state();
+   ^~~~~~~~
+..\main.c:31:3: warning: implicit declaration of function 'DC_state' [-Wimplicit-function-declaration]
+   DC_state();
+   ^~~~~~~~
+Info: Nothing to build for uint4_collision_avoidance
+21:07:32 **** Incremental Build of configuration Debug for project uint4_collision_avoidance_multi_block ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o DC_motor.o "..\\DC_motor.c" 
+..\DC_motor.c: In function 'ST_DC_ideal':
+..\DC_motor.c:34:37: warning: format '%d' expects a matching 'int' argument [-Wformat=]
+  printf("DC_ideal State: DC_speed= %d\n" );
+                                     ^
+..\DC_motor.c: In function 'ST_DC_busy':
+..\DC_motor.c:42:36: warning: format '%d' expects a matching 'int' argument [-Wformat=]
+  printf("DC_busy State: DC_speed= %d\n" );
+                                    ^
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c: In function 'setup':
+..\main.c:16:2: warning: implicit declaration of function 'US_init' [-Wimplicit-function-declaration]
+  US_init();
+  ^~~~~~~
+..\main.c:17:2: warning: implicit declaration of function 'DC_init' [-Wimplicit-function-declaration]
+  DC_init();
+  ^~~~~~~
+..\main.c:20:2: error: 'US_state' undeclared (first use in this function)
+  US_state = STATE(US_busy);
+  ^~~~~~~~
+..\main.c:20:2: note: each undeclared identifier is reported only once for each function it appears in
+In file included from ..\CA.h:13:0,
+                 from ..\main.c:8:
+..\state.h:12:27: error: 'ST_US_busy' undeclared (first use in this function)
+ #define STATE(_stateFUN_) ST_##_stateFUN_
+                           ^
+..\main.c:20:13: note: in expansion of macro 'STATE'
+  US_state = STATE(US_busy);
+             ^~~~~
+..\main.c:21:2: error: 'DC_state' undeclared (first use in this function)
+  DC_state = STATE(DC_ideal);
+  ^~~~~~~~
+In file included from ..\CA.h:13:0,
+                 from ..\main.c:8:
+..\state.h:12:27: error: 'ST_DC_ideal' undeclared (first use in this function)
+ #define STATE(_stateFUN_) ST_##_stateFUN_
+                           ^
+..\main.c:21:13: note: in expansion of macro 'STATE'
+  DC_state = STATE(DC_ideal);
+             ^~~~~
+..\main.c: In function 'main':
+..\main.c:29:3: warning: implicit declaration of function 'US_state' [-Wimplicit-function-declaration]
+   US_state();
+   ^~~~~~~~
+..\main.c:31:3: warning: implicit declaration of function 'DC_state' [-Wimplicit-function-declaration]
+   DC_state();
+   ^~~~~~~~
+Info: Nothing to build for uint4_collision_avoidance
+21:08:07 **** Incremental Build of configuration Debug for project uint4_collision_avoidance_multi_block ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o US_sensor.o "..\\US_sensor.c" 
+..\US_sensor.c:8:23: fatal error: US_sensor.h: No such file or directory
+ #include "US_sensor.h"
+                       ^
+compilation terminated.
+Info: Nothing to build for uint4_collision_avoidance
+21:08:12 **** Incremental Build of configuration Debug for project uint4_collision_avoidance_multi_block ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c: In function 'setup':
+..\main.c:16:2: warning: implicit declaration of function 'US_init' [-Wimplicit-function-declaration]
+  US_init();
+  ^~~~~~~
+..\main.c:17:2: warning: implicit declaration of function 'DC_init' [-Wimplicit-function-declaration]
+  DC_init();
+  ^~~~~~~
+..\main.c:20:2: error: 'US_state' undeclared (first use in this function)
+  US_state = STATE(US_busy);
+  ^~~~~~~~
+..\main.c:20:2: note: each undeclared identifier is reported only once for each function it appears in
+In file included from ..\CA.h:13:0,
+                 from ..\main.c:8:
+..\state.h:12:27: error: 'ST_US_busy' undeclared (first use in this function)
+ #define STATE(_stateFUN_) ST_##_stateFUN_
+                           ^
+..\main.c:20:13: note: in expansion of macro 'STATE'
+  US_state = STATE(US_busy);
+             ^~~~~
+..\main.c:21:2: error: 'DC_state' undeclared (first use in this function)
+  DC_state = STATE(DC_ideal);
+  ^~~~~~~~
+In file included from ..\CA.h:13:0,
+                 from ..\main.c:8:
+..\state.h:12:27: error: 'ST_DC_ideal' undeclared (first use in this function)
+ #define STATE(_stateFUN_) ST_##_stateFUN_
+                           ^
+..\main.c:21:13: note: in expansion of macro 'STATE'
+  DC_state = STATE(DC_ideal);
+             ^~~~~
+..\main.c: In function 'main':
+..\main.c:29:3: warning: implicit declaration of function 'US_state' [-Wimplicit-function-declaration]
+   US_state();
+   ^~~~~~~~
+..\main.c:31:3: warning: implicit declaration of function 'DC_state' [-Wimplicit-function-declaration]
+   DC_state();
+   ^~~~~~~~
+Info: Nothing to build for uint4_collision_avoidance
+21:09:41 **** Incremental Build of configuration Debug for project uint4_collision_avoidance_multi_block ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o DC_motor.o "..\\DC_motor.c" 
+..\DC_motor.c: In function 'ST_DC_ideal':
+..\DC_motor.c:34:37: warning: format '%d' expects a matching 'int' argument [-Wformat=]
+  printf("DC_ideal State: DC_speed= %d\n" );
+                                     ^
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c:9:23: fatal error: US_sensor.h: No such file or directory
+ #include "US_sensor.h"
+                       ^
+compilation terminated.
+Info: Nothing to build for uint4_collision_avoidance
+21:10:21 **** Incremental Build of configuration Debug for project uint4_collision_avoidance_multi_block ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o US_sensor.o "..\\US_sensor.c" 
+..\US_sensor.c:8:23: fatal error: US_sensor.h: No such file or directory
+ #include "US_sensor.h"
+                       ^
+compilation terminated.
+Info: Nothing to build for uint4_collision_avoidance
+21:10:45 **** Incremental Build of configuration Debug for project uint4_collision_avoidance_multi_block ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o US_sensor.o "..\\US_sensor.c" 
+..\US_sensor.c: In function 'ST_US_busy':
+..\US_sensor.c:32:11: error: lvalue required as left operand of assignment
+  US_state = STATE(US_busy);
+           ^
+..\US_sensor.c: In function 'US_Get_distance_random':
+..\US_sensor.c:42:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+Info: Nothing to build for uint4_collision_avoidance
+21:11:30 **** Incremental Build of configuration Debug for project uint4_collision_avoidance_multi_block ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+..\main.c: In function 'setup':
+..\main.c:22:11: error: lvalue required as left operand of assignment
+  US_state = STATE(US_busy);
+           ^
+Info: Nothing to build for uint4_collision_avoidance
+21:12:20 **** Incremental Build of configuration Debug for project uint4_collision_avoidance_multi_block ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o US_sensor.o "..\\US_sensor.c" 
+..\US_sensor.c:14:8: error: 'US_state' redeclared as different kind of symbol
+ void (*US_state)();
+        ^~~~~~~~
+In file included from ..\US_sensor.c:8:0:
+..\US_sensor.h:26:14: note: previous declaration of 'US_state' was here
+ extern void (US_state)();
+              ^~~~~~~~
+..\US_sensor.c: In function 'US_Get_distance_random':
+..\US_sensor.c:42:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+Info: Nothing to build for uint4_collision_avoidance
+21:12:38 **** Incremental Build of configuration Debug for project uint4_collision_avoidance_multi_block ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o US_sensor.o "..\\US_sensor.c" 
+..\US_sensor.c: In function 'US_Get_distance_random':
+..\US_sensor.c:42:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -o uint4_collision_avoidance_multi_block.exe CA.o DC_motor.o US_sensor.o main.o 
+Info: Nothing to build for uint4_collision_avoidance_multi_block
+Info: Nothing to build for uint4_collision_avoidance_multi_block
+Info: Nothing to build for uint4_collision_avoidance_multi_block
+Info: Nothing to build for uint4_collision_avoidance
+Info: Nothing to build for uint4_collision_avoidance
+Info: Nothing to build for uint4_collision_avoidance
+Info: Nothing to build for uint4_collision_avoidance_multi_block
+21:22:19 **** Incremental Build of configuration Debug for project uint4_collision_avoidance ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o CA.o "..\\CA.c" 
+..\CA.c: In function 'US_Get_distance_random':
+..\CA.c:52:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+gcc -o uint4_collision_avoidance.exe CA.o main.o 
+21:22:33 **** Incremental Build of configuration Debug for project uint4_collision_avoidance_multi_block ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o US_sensor.o "..\\US_sensor.c" 
+..\US_sensor.c: In function 'US_Get_distance_random':
+..\US_sensor.c:42:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+gcc -o uint4_collision_avoidance_multi_block.exe CA.o DC_motor.o US_sensor.o main.o 
+c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../../mingw32/bin/ld.exe: cannot open output file uint4_collision_avoidance_multi_block.exe: Permission denied
+collect2.exe: error: ld returned 1 exit status
+Info: Nothing to build for uint4_collision_avoidance
+21:22:45 **** Incremental Build of configuration Debug for project uint4_collision_avoidance_multi_block ****
+Info: Internal Builder is used for build
+gcc -o uint4_collision_avoidance_multi_block.exe CA.o DC_motor.o US_sensor.o main.o 
+c:/mingw/bin/../lib/gcc/mingw32/6.3.0/../../../../mingw32/bin/ld.exe: cannot open output file uint4_collision_avoidance_multi_block.exe: Permission denied
+collect2.exe: error: ld returned 1 exit status
+Info: Nothing to build for uint4_collision_avoidance
+21:22:56 **** Incremental Build of configuration Debug for project uint4_collision_avoidance_multi_block ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o US_sensor.o "..\\US_sensor.c" 
+..\US_sensor.c: In function 'US_Get_distance_random':
+..\US_sensor.c:42:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o CA.o "..\\CA.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o DC_motor.o "..\\DC_motor.c" 
+..\DC_motor.c: In function 'ST_DC_ideal':
+..\DC_motor.c:34:37: warning: format '%d' expects a matching 'int' argument [-Wformat=]
+  printf("DC_ideal State: DC_speed= %d\n" );
+                                     ^
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.c" 
+gcc -o uint4_collision_avoidance_multi_block.exe CA.o DC_motor.o US_sensor.o main.o 
+Info: Nothing to build for uint4_collision_avoidance
+21:23:38 **** Incremental Build of configuration Debug for project uint4_collision_avoidance_multi_block ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o DC_motor.o "..\\DC_motor.c" 
+gcc -o uint4_collision_avoidance_multi_block.exe CA.o DC_motor.o US_sensor.o main.o 
+Info: Nothing to build for uint4_collision_avoidance_multi_block
+Info: Nothing to build for uint4_collision_avoidance_multi_block
+Info: Nothing to build for uint4_collision_avoidance
+21:27:42 **** Incremental Build of configuration Debug for project uint4_collision_avoidance_multi_block ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o US_sensor.o "..\\US_sensor.c" 
+..\US_sensor.c: In function 'US_Get_distance_random':
+..\US_sensor.c:42:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+gcc -o uint4_collision_avoidance_multi_block.exe CA.o DC_motor.o US_sensor.o main.o 
+Info: Nothing to build for uint4_collision_avoidance_multi_block
+Info: Nothing to build for uint4_collision_avoidance
+21:29:55 **** Incremental Build of configuration Debug for project uint4_collision_avoidance_multi_block ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o CA.o "..\\CA.c" 
+gcc -o uint4_collision_avoidance_multi_block.exe CA.o DC_motor.o US_sensor.o main.o 
+Info: Nothing to build for uint4_collision_avoidance_multi_block
+Info: Nothing to build for uint4_collision_avoidance_multi_block
+Info: Nothing to build for uint4_collision_avoidance_multi_block
+Info: Nothing to build for uint4_collision_avoidance_multi_block
+Info: Nothing to build for uint4_collision_avoidance_multi_block
+Info: Nothing to build for uint4_collision_avoidance_multi_block
+Info: Nothing to build for uint4_collision_avoidance
+21:40:59 **** Incremental Build of configuration Debug for project uint4_collision_avoidance_multi_block ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o CA.o "..\\CA.c" 
+gcc -o uint4_collision_avoidance_multi_block.exe CA.o DC_motor.o US_sensor.o main.o 
+Info: Nothing to build for uint4_collision_avoidance_multi_block

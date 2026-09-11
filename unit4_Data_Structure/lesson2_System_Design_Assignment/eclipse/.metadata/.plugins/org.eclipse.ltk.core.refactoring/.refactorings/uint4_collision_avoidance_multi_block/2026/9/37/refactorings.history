@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;uint4_collision_avoidance_multi_block/US_sensoe.h&apos; to &apos;US_sensor.h&apos;" description="Rename resource &apos;US_sensoe.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="US_sensoe.h" name="US_sensor.h" stamp="1789150241905" updateReferences="true"/>
+</session>

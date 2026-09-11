@@ -1,0 +1,49 @@
+/*
+ * CA.c
+ *
+ *  Created on: 11 SEP 2026
+ *      Author: Mohamed Aldreamly
+ */
+
+#include "CA.h"
+//STATE Pointer to function
+void (*CA_state)();
+
+void US_Set_distance(int d);
+
+//varibles
+int CA_speed= 0, CA_distance= 0, CA_threshold= 50 ;
+
+STATE_define(CA_waiting){
+
+	//state_Name
+	CA_State_id = CA_waiting;
+	printf("CA_Waiting State:CA_speed= %d, CA_distance= %d\n" ,CA_speed,CA_distance );
+
+	//State_Action
+	DC_motor(CA_speed);
+	//US_GET_distance(CA_distance)
+}
+
+STATE_define(CA_driving){
+
+	//state_Name
+	CA_State_id = CA_driving;
+	printf("CA_driving State:CA_speed= %d, CA_distance= %d\n" ,CA_speed,CA_distance );
+
+	//State Action
+	CA_speed = 30;
+	DC_motor(CA_speed);
+	//US_GET_distance(CA_distance)
+
+}
+
+void US_Set_distance(int d){
+	CA_distance = d ;
+	//Event_Check
+	(CA_distance<=CA_threshold) ? (CA_state = STATE(CA_waiting)) :(CA_state = STATE(CA_driving));
+	printf("US------distance=%d ------->CA\n", CA_distance);
+}
+
+
+

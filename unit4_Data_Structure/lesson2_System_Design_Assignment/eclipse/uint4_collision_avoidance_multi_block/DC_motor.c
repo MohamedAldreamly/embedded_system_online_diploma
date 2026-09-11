@@ -1,0 +1,44 @@
+/*
+ * DC_motor.c
+ *
+ *  Created on: 11 SEP 2026
+ *      Author: Mohamed Aldreamly
+ */
+#include "DC_motor.h"
+//Varibles
+int DC_speed = 0;
+
+//STATE Pointer to function
+void (*DC_state)();
+
+void DC_motor(int s){
+
+	DC_speed = s;
+	DC_state = STATE(DC_busy);
+	printf("CA------speed=%d ------->DC\n", DC_speed);
+
+}
+
+void DC_init(){
+	//init PWM
+	printf("DC_init \n");
+}
+
+STATE_define(DC_ideal){
+
+	//state name
+	DC_state_id = DC_ideal;
+	//action
+	//Call PWM to set speed = DC_speed
+
+	printf("DC_ideal State: DC_speed= %d\n" ,DC_speed);
+}
+STATE_define(DC_busy){
+	//state name
+	DC_state_id = DC_busy;
+	//action
+	//Call PWM to set speed = DC_speed
+	DC_state=STATE(DC_ideal);
+	printf("DC_busy State: DC_speed= %d\n",DC_speed );
+
+}

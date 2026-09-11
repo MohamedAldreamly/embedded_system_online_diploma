@@ -1,0 +1,26 @@
+/*
+ * main.c
+ *
+ *  Created on: 11 SEP 2026
+ *      Author: Mohamed Aldreamly
+ */
+
+#include "CA.h"
+void setup (){
+
+	//init all the drivers
+	//init IRQ
+	//init HAL US_Driver DC_Driver
+	//init BLOCK
+	//set States pointer for each Block
+	STATE(CA_waiting);
+}
+int main()
+{
+
+	setup();
+	while(1)
+	{
+		CA_state();
+	}
+}

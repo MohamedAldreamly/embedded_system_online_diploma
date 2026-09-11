@@ -1,0 +1,31 @@
+/*
+ * DC_motor.h
+ *
+ *  Created on: 11 SEP 2026
+ *      Author: Mohamed Aldreamly
+ */
+
+
+#ifndef US_SENSOE_H_
+#define US_SENSOE_H_
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "state.h"
+
+enum{
+	DC_ideal,
+	DC_busy
+}DC_state_id;
+
+//APLs
+DC_init ();
+
+//declare func
+STATE_define(DC_ideal);
+STATE_define(DC_busy);
+
+//STATE Pointer to function
+extern void (*DC_state)();
+
+#endif /* US_SENSOE_H_ */
