@@ -8,6 +8,8 @@ extern int main(void);
 
 void Reset_Handler();
 
+extern unsigned int _stack_ptr;
+
 void Default_Handler(){
 	Reset_Handler();
 }
@@ -15,11 +17,9 @@ void Default_Handler(){
 void NMI_Handler() __attribute__ ((weak,alias("Default_Handler")));
 void H_fault_Handler() __attribute__ ((weak,alias("Default_Handler")));
 
-//booking 1024B located by .bss through un inialized array ofint 256 Elment (256*4=1024)
-static unsigned long Stack_top[256];
 
 void (* g_p_fn_Vectors[])() __attribute__((section(".vectors"))) ={
-	(void (*)())	(Stack_top + sizeof(Stack_top)),
+	(void (*)()) &_stack_ptr,
 	&Reset_Handler,
 	&NMI_Handler,
 	&H_fault_Handler
@@ -29,8 +29,9 @@ void (* g_p_fn_Vectors[])() __attribute__((section(".vectors"))) ={
 extern unsigned int _E_text;
 extern unsigned int _S_DATA;
 extern unsigned int _E_DATA;
-extern unsigned int _S_bss;
-extern unsigned int _E_bss;
+extern unsigned int _S_BSS;
+extern unsigned int _E_BSS;
+
 
 void Reset_Handler(){
 	//copy data section from flash to ram
@@ -41,8 +42,8 @@ void Reset_Handler(){
 		*((unsigned char*)P_det++) = *((unsigned char*)P_src++); 
 	}
 	
-	unsigned int bss_size = (unsigned char *)&_E_bss - (unsigned char *)&_S_bss ;
-	P_det = (unsigned char*)&_S_bss;
+	unsigned int bss_size = (unsigned char *)&_E_BSS - (unsigned char *)&_S_BSS ;
+	P_det = (unsigned char*)&_S_BSS;
 	for (int i= 0; bss_size > i; i ++ ){
 		*((unsigned char*)P_det++) = (unsigned char) 0 ; 
 	}
