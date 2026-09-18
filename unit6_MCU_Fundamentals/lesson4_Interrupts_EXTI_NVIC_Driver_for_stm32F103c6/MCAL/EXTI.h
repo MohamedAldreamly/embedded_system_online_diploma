@@ -41,7 +41,7 @@ typedef void (*EXTI_Callback)(void);
 /*		Configuration		*/
 
 #define Interrupt_Source	interruptByHardware
-//#define EXTI_Mode			interrupt
+#define EXTI_Mode			interrupt
 //#define Tigger_Sence		Rising_Edge
 
 
@@ -75,12 +75,8 @@ typedef struct{
 	volatile uint32 PR;
 }EXTI_t;
 
-
-
 #define EXTI_BASE 0x40010400
 #define EXTI ((volatile EXTI_t*)EXTI_BASE)
-
-
 
 /*		define EXTI LINES		*/ 
 

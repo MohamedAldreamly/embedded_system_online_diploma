@@ -20,7 +20,6 @@
 /* AFIO Base Address */
 #define AFIO_BASE_ADDRESS        0x40010000UL
 
-
 typedef struct
 {
     volatile uint32 EVCR;
@@ -31,7 +30,6 @@ typedef struct
 } AFIO_Type;
 
 #define AFIO                    ((AFIO_Type *)AFIO_BASE_ADDRESS)
-
 
 
 #define EXTI_PORTA  0b0000

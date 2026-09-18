@@ -49,7 +49,7 @@ RCC_STATE_t RCC_enumDisablePeripheralClock			( uint8 Copy_u8BusId , uint8 Copy_u
 //==============================================================================================================
 /*	Configuration Clock System	*/
 
-#define RCC_CLOCK_TYPE      	RCC_PLL
+#define RCC_CLOCK_TYPE      	RCC_HSI
 #define RCC_PLL_SOURCE      	RCC_PLL_HSI_DIVIDED_BY_2
 #define RCC_PLL_MUL          	PLL_CLOCK_MULTIPLE_BY_8
 #define RCC_AHB_PRESCALER    	SYSCLK_NOT_DIVIDED
@@ -151,18 +151,18 @@ RCC_STATE_t RCC_enumDisablePeripheralClock			( uint8 Copy_u8BusId , uint8 Copy_u
 #define    FLITF_RCC        4
 #define    CRC_RCC          6
 #define    FSMC_RCC         8
-#define    SGPOI_RCC         10
+#define    SGPIO_RCC         10
 
 /*		Peripheral Clock Enable For APB2 Bus		*/
 
 #define    AFIO_RCC         0
-#define    GPOIA_RCC        2
-#define    GPOIB_RCC        3
-#define    GPOIC_RCC        4
-#define    GPOID_RCC        5
-#define    GPOIE_RCC        6
-#define    GPOIF_RCC        7
-#define    GPOIG_RCC        8
+#define    GPIOA_RCC        2
+#define    GPIOB_RCC        3
+#define    GPIOC_RCC        4
+#define    GPIOD_RCC        5
+#define    GPIOE_RCC        6
+#define    GPIOF_RCC        7
+#define    GPIOG_RCC        8
 #define    ADC1_RCC         9
 #define    ADC2_RCC         10
 #define    TIM1_RCC         11

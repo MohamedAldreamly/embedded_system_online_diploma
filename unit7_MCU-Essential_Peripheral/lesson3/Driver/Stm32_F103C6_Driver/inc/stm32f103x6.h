@@ -1,0 +1,186 @@
+/*
+ *	stm32f103x6.h
+ *
+ *  Author  	: Mohamed Aldreamly
+ *	Created on	: SEP, 17 2026
+ *	Defination 	: MCU Device Header
+ *  Layer   	: MCAL
+ *  Target  	: STM32F103 / Cortex-M3
+ *
+ */
+
+#ifndef INC_STM32F103X6_H_
+#define INC_STM32F103X6_H_
+
+//-----------------------------
+//Includes
+//-----------------------------
+
+#include <stdint.h>
+#include <stdlib.h>
+
+//-----------------------------
+//Base addresses for Memories
+//-----------------------------
+
+#define FLASH_Memory_BASE						0x080000000UL
+#define System_Memory_BASE						0x1FFFFF000UL
+#define SRAM_Memory_BASE						0x200000000UL
+
+#define Peripheral_BASE							0x400000000UL
+#define Cortex_M3_Internal_Peripheral_BASE		0xE00000000UL
+
+//-----------------------------
+//Base addresses for AHB Peripherals
+//-----------------------------
+
+#define RCC_BASE_ADDRESS						0x40021000UL
+
+#define NVIC_BASE_ADDRESS    					0xE000E100UL
+
+
+//-----------------------------
+//Base addresses for APB2 Peripherals
+//-----------------------------
+
+//GPIO
+//A, B fully included in LQFP48 Package
+#define GPIOA_BASE_ADDRESS						0x40010800UL
+#define GPIOB_BASE_ADDRESS						0x40010C00UL
+
+//C, D partial included in LQFP48 Package
+#define GPIOC_BASE_ADDRESS						0x40011000UL
+#define GPIOD_BASE_ADDRESS						0x40011400UL
+
+//E not included in LQFP48 Package
+#define GPIOE_BASE_ADDRESS						0x40011800UL
+
+//EXTI
+#define EXTI_BASE_ADDRESS						0x40010400UL
+
+//AFIO
+#define AFIO_BASE_ADDRESS						0x40010000UL
+
+//-----------------------------
+//Base addresses for APB1 Peripherals
+//-----------------------------
+
+
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+//Peripheral register:
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Peripheral NVIC register:
+//-*-*-*-*-*-*-*-*-*-*-*
+
+typedef struct
+{
+    volatile uint32_t ISER[8];       /* 0x000 - 0x01C */
+    uint32_t RESERVED0[24];           /* 0x020 - 0x07C */
+    volatile uint32_t ICER[8];       /* 0x080 - 0x09C */
+    uint32_t RESERVED1[24];           /* 0x0A0 - 0x0FC */
+    volatile uint32_t ISPR[8];       /* 0x100 - 0x11C */
+    uint32_t RESERVED2[24];           /* 0x120 - 0x17C */
+    volatile uint32_t ICPR[8];       /* 0x180 - 0x19C */
+    uint32_t RESERVED3[24];           /* 0x1A0 - 0x1FC */
+    volatile uint32_t IABR[8];       /* 0x200 - 0x21C */
+    uint32_t RESERVED4[56];           /* 0x220 - 0x2FC */
+    volatile uint8_t IPR[240];       /* 0x300 - 0x3EF */
+
+} NVIC_t;
+
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Peripheral GPIO register:
+//-*-*-*-*-*-*-*-*-*-*-*
+
+typedef struct {
+	volatile uint32_t CRL;
+	volatile uint32_t CRH;
+	volatile uint32_t IDR;
+	volatile uint32_t ODR;
+	volatile uint32_t BSRR;
+	volatile uint32_t BRR;
+	volatile uint32_t LCKR;
+} GPIO_t;
+
+
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Peripheral RCC register:
+//-*-*-*-*-*-*-*-*-*-*-*
+
+typedef struct{
+	volatile uint32_t CR;
+	volatile uint32_t CFGR;
+	volatile uint32_t CIR;
+	volatile uint32_t APB2RSTR;
+	volatile uint32_t APB1RSTR;
+	volatile uint32_t AHBENR;
+	volatile uint32_t APB2ENR;
+	volatile uint32_t APB1ENR;
+	volatile uint32_t BDCR;
+}RCC_t;
+
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Peripheral EXTI register:
+//-*-*-*-*-*-*-*-*-*-*-*
+
+typedef struct{
+	volatile uint32_t IMR;
+	volatile uint32_t EMR;
+	volatile uint32_t RTSR;
+	volatile uint32_t FTSR;
+	volatile uint32_t SWIER;
+	volatile uint32_t PR;
+}EXTI_t;
+
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Peripheral AFIO register:
+//-*-*-*-*-*-*-*-*-*-*-*
+
+typedef struct
+{
+    volatile uint32_t EVCR;
+    volatile uint32_t MAPR;
+    volatile uint32_t EXTICR[4];
+    volatile uint32_t RESERVED;
+    volatile uint32_t MAPR2;
+
+} AFIO_t;
+
+//-*-*-*-*-*-*-*-*-*-*-
+//Peripheral Instants:
+//-*-*-*-*-*-*-*-*-*-*-*
+
+#define NVIC    			((NVIC_t *)NVIC_BASE_ADDRESS)
+
+
+#define GPIOA 				((volatile GPIO_t *)GPIOA_BASE_ADDRESS)
+#define GPIOB 				((volatile GPIO_t *)GPIOB_BASE_ADDRESS)
+#define GPIOC 				((volatile GPIO_t *)GPIOC_BASE_ADDRESS)
+#define GPIOD 				((volatile GPIO_t *)GPIOD_BASE_ADDRESS)
+#define GPIOE 				((volatile GPIO_t *)GPIOE_BASE_ADDRESS)
+
+#define EXTI 				((volatile EXTI_t*)EXTI_BASE)
+#define RCC 				((volatile RCC_t*)RCC_BASE_ADDRESS)
+#define AFIO				((volatile AFIO_Type *)AFIO_BASE_ADDRESS)
+
+
+//-*-*-*-*-*-*-*-*-*-*-*-
+//clock enable Macros:
+//-*-*-*-*-*-*-*-*-*-*-*
+
+#define RCC_GPIOA_CLK_EN()	(RCC->APB2ENR |= 1<<2)
+#define RCC_GPIOB_CLK_EN()	(RCC->APB2ENR |= 1<<3)
+#define RCC_GPIOC_CLK_EN()	(RCC->APB2ENR |= 1<<4)
+#define RCC_GPIOD_CLK_EN()	(RCC->APB2ENR |= 1<<5)
+#define RCC_GPIOE_CLK_EN()	(RCC->APB2ENR |= 1<<6)
+
+#define RCC_AFIO_CLK_EN()	(RCC->APB2ENR |= 1<<0)
+
+
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Generic Macros:
+//-*-*-*-*-*-*-*-*-*-*-*
+
+#endif /*	INC_STM32F103X6_H_	*/

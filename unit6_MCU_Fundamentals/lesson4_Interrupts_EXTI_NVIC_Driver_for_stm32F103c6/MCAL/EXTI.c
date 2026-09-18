@@ -11,17 +11,24 @@
  */ 
  
 #include "EXTI.h" 
-
+#include "AFIO.h"
 
 #define NULL	0
 
 EXTI_Callback EXTICallbacks [16] = {NULL} ;
-uint8 EXTILineNumberNVICMap[16] = {6,7,8,9,10,23,23,23,23,23,40,40,40,40,40,40} ;  // Map between EXTI line number and NVIC IRQ number	
+uint8 EXTILineNumberNVICMap[16] = {EXTI0IRQn,EXTI1IRQn,EXTI2IRQn,EXTI3IRQn,
+									EXTI4IRQn,EXTI5IRQn,EXTI6IRQn,EXTI7IRQn,
+									EXTI8IRQn,EXTI9IRQn,EXTI10IRQn,EXTI11IRQn,
+									EXTI12IRQn,EXTI13IRQn,EXTI14IRQn,EXTI15IRQn} ;  
+									// Map between EXTI line number and NVIC IRQ number	
 
 EXTI_STATE_t EXTI_enumInit(uint8 Copy_u8EXTILine,
 							uint8 Copy_u8Port, 
 							uint8 Copy_u8EXTISenseMode ,
 							EXTI_Callback Copy_EXTI_CallBack){
+	
+	//RCC_EnablePeripheralClock
+	AFIO_Init();
 	
 	uint8 AFIO_EXTICRIndex    = Copy_u8EXTILine / 4;
 	uint8 AFIO_EXTICRPosition = (Copy_u8EXTILine % 4) * 4;
@@ -35,9 +42,6 @@ EXTI_STATE_t EXTI_enumInit(uint8 Copy_u8EXTILine,
 	
 	//set callback func
 	EXTICallbacks [Copy_u8EXTILine] = Copy_EXTI_CallBack;
-	
-	//RCC_EnablePeripheralClock
-	AFIO_Init();
 	
 	
 	// trigger enabled (for Event and Interrupt) for input line.
@@ -61,11 +65,12 @@ EXTI_STATE_t EXTI_enumInit(uint8 Copy_u8EXTILine,
 	#elif EXTI_Mode ==event
 		SET_BIT(EXTI->EMR ,Copy_u8EXTILine );
 	
-	#elif EXTI_Mode ==interrupt&event
+	#elif EXTI_Mode ==interrupt_event
 		SET_BIT(EXTI->EMR ,Copy_u8EXTILine );
 		SET_BIT(EXTI->IMR ,Copy_u8EXTILine );
 	
 	#endif	
+	
 	
 	//	NVIC IRQ channel 
 	NVIC_voidEnableInterrupt(EXTILineNumberNVICMap[Copy_u8EXTILine]);
@@ -88,6 +93,7 @@ EXTI_STATE_t EXTI_enumSetSignalLatch (uint8 Copy_u8EXTILine , uint8 Copy_u8EXTIS
 	case Rising_Falling_Edge:
 		SET_BIT(EXTI->FTSR ,Copy_u8EXTILine );
 		SET_BIT(EXTI->RTSR ,Copy_u8EXTILine );
+		break;
 	default:
 		return EXTI_ERROR;
 	}
@@ -103,7 +109,7 @@ EXTI_STATE_t EXTI_enumEnableEXTI     (uint8 Copy_u8EXTILine                     
 EXTI_STATE_t EXTI_enumDisableEXTI    (uint8 Copy_u8EXTILine                          ){
 	//Interrupt request from Line is masked
 	CLR_BIT(EXTI->IMR ,Copy_u8EXTILine );
-	NVIC_voidEnableInterrupt(EXTILineNumberNVICMap[Copy_u8EXTILine]);
+	NVIC_voidDisableInterrupt(EXTILineNumberNVICMap[Copy_u8EXTILine]);
 	return EXTI_DONE;	
 }
 
@@ -111,7 +117,7 @@ EXTI_STATE_t EXTI_enumDisableEXTI    (uint8 Copy_u8EXTILine                     
 EXTI_STATE_t EXTI_enumSetCallBack(uint8 Copy_u8EXTILine, EXTI_Callback Copy_EXTI_CallBack)
 {
 	EXTICallbacks[Copy_u8EXTILine] = Copy_EXTI_CallBack;
-	NVIC_voidDisableInterrupt(EXTILineNumberNVICMap[Copy_u8EXTILine]);
+	NVIC_voidEnableInterrupt(EXTILineNumberNVICMap[Copy_u8EXTILine]);
 
 	return EXTI_DONE;	
 }
@@ -126,7 +132,7 @@ void EXTI0_IRQHandler(void)
 		EXTICallbacks[0]();  // Calling the func @ main
 	}
 	/*	Clear pending Bit		*/
-	SET_BIT(EXTI -> PR , 0);
+	EXTI->PR = (1UL << Copy_u8EXTILine);
 }
 
 void EXTI1_IRQHandler(void)
