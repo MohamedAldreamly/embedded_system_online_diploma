@@ -1,8 +1,8 @@
 /*
  * lcd.c
  *
- * Created: 4/22/2021 3:01:11 PM
- *  Author: Marco
+ *	Created on	: SEP, 18 2026
+ *  Author: Mohamed aldremly
  */
 
 #include "lcd.h"
