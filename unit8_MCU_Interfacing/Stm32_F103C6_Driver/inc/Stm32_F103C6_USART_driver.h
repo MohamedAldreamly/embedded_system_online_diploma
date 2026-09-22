@@ -58,7 +58,7 @@ typedef struct{
 #define UART_BaudRate_9600			9600
 #define UART_BaudRate_19200			19200
 #define UART_BaudRate_57600			57600
-#define UART_BaudRate_112500		112500
+#define UART_BaudRate_115200		115200
 #define UART_BaudRate_230400		230400
 #define UART_BaudRate_460800		460800
 #define UART_BaudRate_921600		921600
@@ -105,12 +105,12 @@ typedef enum {
 //DIV_Mantissa= Integer Part (USARTDIV )
 //DIV_Fraction= (( USARTDIV_MUL100-DIV_Mantissa_MUL100) * 16 ) / 100
 
-#define USARTDIV(_PCLK_,_BAUD_)				(uint32_t)(_PCLK_/ (16 * _BAUD_))
-#define USARTDIV_MUL100(_PCLK_,_BAUD_)		(uint32_t)((25 *_PCLK_)/ (4* _BAUD_))
-#define DIV_Mantissa_MUL100(_PCLK_,_BAUD_)	(uint32_t)(USARTDIV_MUL100(_PCLK_,_BAUD_))
-#define DIV_Mantissa(_PCLK_,_BAUD_)			(uint32_t)(USARTDIV(_PCLK_,_BAUD_))
-#define DIV_Fraction(_PCLK_,_BAUD_)			(uint32_t)(((USARTDIV_MUL100(_PCLK_,_BAUD_) - DIV_Mantissa_MUL100(_PCLK_,_BAUD_))*16)/100)
-#define UART_BRR_Register(_PCLK_,_BAUD_)	((DIV_Mantissa(_PCLK_,_BAUD_))<<4) | (DIV_Fraction(_PCLK_,_BAUD_) & 0x0F)
+#define USARTDIV(_PCLK_, _BAUD_) 				((uint32_t)(_PCLK_ / (16U * _BAUD_)))
+#define USARTDIV_MUL100(_PCLK_, _BAUD_) 		((uint32_t)((25U * _PCLK_) / (4U * _BAUD_)))
+#define DIV_Mantissa(_PCLK_,_BAUD_)				(USARTDIV(_PCLK_,_BAUD_))
+#define DIV_Mantissa_MUL100(_PCLK_,_BAUD_)		((uint32_t)(DIV_Mantissa(_PCLK_,_BAUD_) * 100U))
+#define DIV_Fraction(_PCLK_,_BAUD_)				(uint32_t)(((USARTDIV_MUL100(_PCLK_,_BAUD_) - DIV_Mantissa_MUL100(_PCLK_,_BAUD_))*16)/100)
+#define UART_BRR_Register(_PCLK_,_BAUD_)		((DIV_Mantissa(_PCLK_,_BAUD_))<<4) | (DIV_Fraction(_PCLK_,_BAUD_) & 0x0F)
 
 /*
  *===================================================================

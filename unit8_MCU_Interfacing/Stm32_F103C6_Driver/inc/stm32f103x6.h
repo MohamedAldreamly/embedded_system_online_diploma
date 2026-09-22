@@ -61,10 +61,24 @@
 //AFIO
 #define AFIO_BASE_ADDRESS						0x40010000UL
 
+//USART1
+#define USART1_BASE_ADDRESS						0x40013800UL
+
+//SPI1
+#define SPI1_BASE_ADDRESS						0x40013000UL
+
+
 //-----------------------------
 //Base addresses for APB1 Peripherals
 //-----------------------------
 
+//USAR2
+#define USART2_BASE_ADDRESS						0x40004400UL
+//USAR3
+#define USART3_BASE_ADDRESS						0x40004800UL
+
+//SPI2
+#define SPI2_BASE_ADDRESS						0x40003800UL
 
 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 //Peripheral register:
@@ -148,6 +162,40 @@ typedef struct
 
 } AFIO_t;
 
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Peripheral USART register:
+//-*-*-*-*-*-*-*-*-*-*-*
+
+typedef struct
+{
+    volatile uint32_t SR;
+    volatile uint32_t DR;
+    volatile uint32_t BRR;
+    volatile uint32_t CR1;
+    volatile uint32_t CR2;
+    volatile uint32_t CR3;
+    volatile uint32_t GTPR;
+
+} USART_t;
+
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Peripheral SPI register:
+//-*-*-*-*-*-*-*-*-*-*-*
+
+typedef struct
+{
+    volatile uint32_t CR1;
+    volatile uint32_t CR2;
+    volatile uint32_t SR;
+    volatile uint32_t DR;
+    volatile uint32_t CRCPR;
+    volatile uint32_t RXCRCR;
+    volatile uint32_t TXCRCR;
+    volatile uint32_t I2SCFGR;
+    volatile uint32_t I2SPR;
+
+} SPI_t;
+
 //-*-*-*-*-*-*-*-*-*-*-
 //Peripheral Instants:
 //-*-*-*-*-*-*-*-*-*-*-*
@@ -161,9 +209,56 @@ typedef struct
 #define GPIOD 				((volatile GPIO_t *)GPIOD_BASE_ADDRESS)
 #define GPIOE 				((volatile GPIO_t *)GPIOE_BASE_ADDRESS)
 
-#define EXTI 				((volatile EXTI_t*)EXTI_BASE)
+#define EXTI 				((volatile EXTI_t*)EXTI_BASE_ADDRESS)
 #define RCC 				((volatile RCC_t*)RCC_BASE_ADDRESS)
-#define AFIO				((volatile AFIO_Type *)AFIO_BASE_ADDRESS)
+#define AFIO				((volatile AFIO_t *)AFIO_BASE_ADDRESS)
+
+#define USART1				((volatile USART_t *)USART1_BASE_ADDRESS)
+#define USART2				((volatile USART_t *)USART2_BASE_ADDRESS)
+#define USART3				((volatile USART_t *)USART3_BASE_ADDRESS)
+
+#define SPI1				((volatile SPI_t *)SPI1_BASE_ADDRESS)
+#define SPI2				((volatile SPI_t *)SPI2_BASE_ADDRESS)
+
+
+//-*-*-*-*-*-*-*-*-*-*-*-
+//Generic Macros:
+//-*-*-*-*-*-*-*-*-*-*-*
+
+
+//-*-*-*-*-*-*-*-*-*-*-*-*
+//IVT
+//-*-*-*-*-*-*-*-*-*-*-*-*-
+//EXTI
+
+#define EXTI0IRQ     6
+#define EXTI1IRQ     7
+#define EXTI2IRQ     8
+#define EXTI3IRQ     9
+#define EXTI4IRQ    10
+
+#define EXTI5IRQ     23
+#define EXTI6IRQ     23
+#define EXTI7IRQ     23
+#define EXTI8IRQ     23
+#define EXTI9IRQ     23
+
+#define EXTI10IRQ    40
+#define EXTI11IRQ    40
+#define EXTI12IRQ    40
+#define EXTI13IRQ    40
+#define EXTI14IRQ    40
+#define EXTI15IRQ    40
+
+
+//USART
+#define USART1IRQ    37
+#define USART2IRQ    38
+#define USART3IRQ    39
+
+//SPI
+#define SPI1IRQ    35
+#define SPI2IRQ    36
 
 
 //-*-*-*-*-*-*-*-*-*-*-*-
@@ -178,9 +273,60 @@ typedef struct
 
 #define RCC_AFIO_CLK_EN()	(RCC->APB2ENR |= 1<<0)
 
+//clock Enable USART
+#define RCC_USART1_CLK_EN()	(RCC->APB2ENR |= 1<<14)
+#define RCC_USART2_CLK_EN()	(RCC->APB1ENR |= 1<<17)
+#define RCC_USART3_CLK_EN()	(RCC->APB1ENR |= 1<<18)
 
-//-*-*-*-*-*-*-*-*-*-*-*-
-//Generic Macros:
-//-*-*-*-*-*-*-*-*-*-*-*
+//clock Reset USART
+#define RCC_USART1_CLK_Reset()	(RCC->APB2RSTR |= 1<<14)
+#define RCC_USART2_CLK_Reset()	(RCC->APB1RSTR |= 1<<17)
+#define RCC_USART3_CLK_Reset()	(RCC->APB1RSTR |= 1<<18)
+
+//clock Enable SPI
+#define RCC_SPI1_CLK_EN()	(RCC->APB2ENR |= 1<<12)
+#define RCC_SPI2_CLK_EN()	(RCC->APB1ENR |= 1<<14)
+
+//clock Reset SPI
+#define RCC_SPI1_CLK_Reset()	(RCC->APB2RSTR |= 1<<12)
+#define RCC_SPI2_CLK_Reset()	(RCC->APB1RSTR |= 1<<14)
+
+
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+//NVIC IRQ Enable/Disable Macros:
+//-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+#define NVIC_IRQ6_EXTI0_Enable 				(NVIC->ISER[0] |=1<<6)
+#define NVIC_IRQ7_EXTI1_Enable 				(NVIC->ISER[0] |=1<<7)
+#define NVIC_IRQ8_EXTI2_Enable 				(NVIC->ISER[0] |=1<<8)
+#define NVIC_IRQ9_EXTI3_Enable 				(NVIC->ISER[0] |=1<<9)
+#define NVIC_IRQ10_EXTI4_Enable 			(NVIC->ISER[0] |=1<<10)
+#define NVIC_IRQ23_EXTI5_9_Enable 			(NVIC->ISER[0] |=1<<23)
+#define NVIC_IRQ40_EXTI10_15_Enable 		(NVIC->ISER[1] |=1<<8)
+
+
+#define NVIC_IRQ6_EXTI0_Disable 				(NVIC->ICER[0] |=1<<6)
+#define NVIC_IRQ7_EXTI1_Disable 				(NVIC->ICER[0] |=1<<7)
+#define NVIC_IRQ8_EXTI2_Disable 				(NVIC->ICER[0] |=1<<8)
+#define NVIC_IRQ9_EXTI3_Disable 				(NVIC->ICER[0] |=1<<9)
+#define NVIC_IRQ10_EXTI4_Disable 				(NVIC->ICER[0] |=1<<10)
+#define NVIC_IRQ23_EXTI5_9_Disable 				(NVIC->ICER[0] |=1<<23)
+#define NVIC_IRQ40_EXTI10_15_Disable 			(NVIC->ICER[1] |=1<<8)
+
+//USART
+#define NVIC_IRQ37_USART1_Enable 			(NVIC->ISER[1] |=(1<<(USART1IRQ-32)))
+#define NVIC_IRQ38_USART2_Enable 			(NVIC->ISER[1] |=(1<<(USART2IRQ-32)))
+#define NVIC_IRQ39_USART3_Enable 			(NVIC->ISER[1] |=(1<<(USART3IRQ-32)))
+
+#define NVIC_IRQ37_USART1_Disable 			(NVIC->ICER[1] |=(1<<(USART1IRQ-32)))
+#define NVIC_IRQ38_USART2_Disable 			(NVIC->ICER[1] |=(1<<(USART2IRQ-32)))
+#define NVIC_IRQ39_USART3_Disable 			(NVIC->ICER[1] |=(1<<(USART3IRQ-32)))
+
+//SPI
+#define NVIC_IRQ35_SPI1_Enable 				(NVIC->ISER[1] |=(1<<(SPI1IRQ-32)))
+#define NVIC_IRQ36_SPI2_Enable 			(NVIC->ISER[1] |=(1<<(SPI2IRQ-32)))
+
+#define NVIC_IRQ35_SPI1_Disable 			(NVIC->ICER[1] |=(1<<(SPI1IRQ-32)))
+#define NVIC_IRQ36_SPI2_Disable 			(NVIC->ICER[1] |=(1<<(SPI2IRQ-32)))
+
 
 #endif /*	INC_STM32F103X6_H_	*/

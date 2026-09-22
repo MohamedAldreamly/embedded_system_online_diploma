@@ -28,7 +28,7 @@
 //110: HCLK divided by 8
 //111: HCLK divided by 16
 
-const uint8_t APBPrescTable[8U] = {0,0,0,0,1,2,3,4};// Shift 1 right == multiply by 2
+const uint8_t APBPrescTable[8U] = {0,0,0,0,1,2,3,4};// Shift 1 left == multiply by 2
 
 //Bits 7:4 HPRE: AHB prescaler
 //Set and cleared by software to control the division factor of the AHB clock.
@@ -42,7 +42,11 @@ const uint8_t APBPrescTable[8U] = {0,0,0,0,1,2,3,4};// Shift 1 right == multiply
 //1110: SYSCLK divided by 256
 //1111: SYSCLK divided by 512
 
-const uint8_t AHBPrescTable[16U] = {0,0,0,0,0,0,0,0,1,2,3,4,5,6,7,8};// Shift 1 right == multiply by 2
+const uint8_t AHBPrescTable[16U] =
+{
+    0,0,0,0,0,0,0,0,
+    1,2,3,4,6,7,8,9
+};// Shift 1 right == multiply by 2
 
 /*
  *===========================================================
@@ -75,20 +79,40 @@ uint32_t MCAL_RCC_GetSYS_CLCKFreq(void){
 	return 0;
 
 }
-uint32_t MCAL_RCC_GetHCLKFreq(void){
+
+
+uint32_t MCAL_RCC_GetHCLKFreq(void)
+{
 	//Bits 7:4 HPRE: AHB prescaler
-	return (MCAL_RCC_GetSYS_CLCKFreq()>>(APBPrescTable[(RCC->CFGR>>4)])&0x111);
+    uint8_t HPRE;
+
+    HPRE = (uint8_t)((RCC->CFGR >> 4) & 0x0F);
+
+    return (MCAL_RCC_GetSYS_CLCKFreq() >> AHBPrescTable[HPRE]);
 }
 
-uint32_t MCAL_RCC_GetPCLK2Freq(void){
+uint32_t MCAL_RCC_GetPCLK1Freq(void)
+{
 	//Bits 10:8 PPRE1: APB low-speed prescaler (APB1)
-	return (MCAL_RCC_GetHCLKFreq()>>(AHBPrescTable[(RCC->CFGR>>8)])&0b1111);
+
+    uint8_t PPRE1;
+
+    PPRE1 = (uint8_t)((RCC->CFGR >> 8) & 0x07);
+
+    return (MCAL_RCC_GetHCLKFreq() >> APBPrescTable[PPRE1]);
 }
 
-uint32_t MCAL_RCC_GetPCLK1Freq(void){
+uint32_t MCAL_RCC_GetPCLK2Freq(void)
+{
 	//Bits 13:11 PPRE2: APB high-speed prescaler (APB2)
-	return (MCAL_RCC_GetHCLKFreq()>>(APBPrescTable[(RCC->CFGR>>11)])&0b111);
+
+    uint8_t PPRE2;
+
+    PPRE2 = (uint8_t)((RCC->CFGR >> 11) & 0x07);
+
+    return (MCAL_RCC_GetHCLKFreq() >> APBPrescTable[PPRE2]);
 }
+
 
 
 /*
