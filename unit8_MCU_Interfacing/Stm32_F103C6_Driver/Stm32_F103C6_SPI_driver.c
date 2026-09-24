@@ -32,7 +32,8 @@
 
 SPI_Config_t* Global_SPI_Config[2] = {NULL,NULL};
 
-
+SPI_Config_t Global_SPI_Config1;
+SPI_Config_t Global_SPI_Config2;
 /*
  *===========================================================
  *					 	Generic Functions
@@ -66,11 +67,13 @@ void MCAL_SPI_Init(volatile SPI_t *SPIx ,SPI_Config_t *SPI_Config){
 
 
 	if(SPIx == SPI1){
-		Global_SPI_Config[SPI1_INDEX] = SPI_Config;
+		Global_SPI_Config1 = *SPI_Config;
+		Global_SPI_Config[SPI1_INDEX] = &Global_SPI_Config1;
 		RCC_SPI1_CLK_EN();
 
 	}else if (SPIx == SPI2){
-		Global_SPI_Config[SPI2_INDEX] = SPI_Config;
+		Global_SPI_Config2 = *SPI_Config;
+		Global_SPI_Config[SPI2_INDEX] = &Global_SPI_Config2;
 		RCC_SPI2_CLK_EN();
 	}
 
