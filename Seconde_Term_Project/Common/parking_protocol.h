@@ -5,9 +5,23 @@
 #include "system_types.h"
 
 
-/* =========================
+/* =========================================================
+ * UART Protocol Configuration
+ * ========================================================= */
+
+#define PARKING_PROTOCOL_SOF             0xAAU
+#define PARKING_PROTOCOL_FRAME_SIZE      12U
+
+#define PARKING_PROTOCOL_TYPE_INDEX      1U
+#define PARKING_PROTOCOL_SOURCE_INDEX    2U
+#define PARKING_PROTOCOL_USER_ID_INDEX   3U
+#define PARKING_PROTOCOL_RFID_UID_INDEX  7U
+#define PARKING_PROTOCOL_CHECKSUM_INDEX  11U
+
+
+/* =========================================================
  * Message Types
- * ========================= */
+ * ========================================================= */
 
 typedef enum
 {
@@ -34,9 +48,9 @@ typedef enum
 } MessageType_t;
 
 
-/* =========================
- * UART Application Packet
- * ========================= */
+/* =========================================================
+ * Logical Application Packet
+ * ========================================================= */
 
 typedef struct
 {
@@ -48,5 +62,6 @@ typedef struct
     uint32_t rfidUID;
 
 } ParkingPacket_t;
+
 
 #endif /* PARKING_PROTOCOL_H_ */

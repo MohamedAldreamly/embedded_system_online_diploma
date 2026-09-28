@@ -75,7 +75,6 @@ AccessResult_t Access_ValidateRFID(uint32_t userID,
                                   ECU_Source_t source)
 {
     User_t Local_User;
-	uint8_t atemps = 0;
 	
 
     /* Get the registered user data. */
@@ -92,7 +91,7 @@ AccessResult_t Access_ValidateRFID(uint32_t userID,
     if (Local_User.rfidUID != rfidUID)
     {
         return ACCESS_WRONG_CARD;
-		while (atemps =< MAX_RFID_ATTEMPTS)
+		
     }
 	
 

@@ -16,6 +16,10 @@
  *                  	Generic Macros
  *==========================================================
  */
+ 
+#define USART1_INDEX    0U
+#define USART2_INDEX    1U
+#define USART3_INDEX    2U
 
 /*
  *===========================================================
@@ -23,7 +27,13 @@
  *===========================================================
  */
 
-UART_Config_t* Global_UART_Config = NULL;
+static UART_Config_t* Global_UART_Config[3] =
+{
+    NULL,
+    NULL,
+    NULL
+};
+
 
 
 /*
@@ -65,14 +75,20 @@ void MCAL_UART_Init(volatile USART_t* USARTx , UART_Config_t * UART_Config){
  * 	start bit.
  *
  */
-	Global_UART_Config = UART_Config;
+
 	//enable clock for given USART peripheral
-	if (USARTx == USART1)
+	if (USARTx == USART1){
 		RCC_USART1_CLK_EN();
-	else if (USARTx == USART2)
-			RCC_USART2_CLK_EN();
-	else if (USARTx == USART3)
-			RCC_USART3_CLK_EN();
+		Global_UART_Config[USART1_INDEX] = UART_Config;
+	}
+	else if (USARTx == USART2){
+		RCC_USART2_CLK_EN();
+		Global_UART_Config[USART2_INDEX] = UART_Config;
+	}
+	else if (USARTx == USART3){
+		RCC_USART3_CLK_EN();
+		Global_UART_Config[USART3_INDEX] = UART_Config;
+	}
 	//1. Bit 13 UE: USART enable
 	USARTx->CR1 |=(1<<13);
 	//Enable USART TX and RX engines according to the USART_Mode configuration item
@@ -114,7 +130,7 @@ void MCAL_UART_Init(volatile USART_t* USARTx , UART_Config_t * UART_Config){
 		//	Enable NVIC for USARTx IRQ
 		if (USARTx == USART1)
 			NVIC_IRQ37_USART1_Enable;
-		else if (USARTx == USART2)
+		else if (USARTx == USART2)	
 			NVIC_IRQ38_USART2_Enable;
 		else if (USARTx == USART3)
 			NVIC_IRQ39_USART3_Enable;
@@ -133,12 +149,15 @@ void MCAL_UART_Deinit(volatile USART_t* USARTx){
 	if (USARTx == USART1){
 		RCC_USART1_CLK_Reset();
 		NVIC_IRQ37_USART1_Disable;
+		Global_UART_Config[USART1_INDEX] = NULL;
 	}else if (USARTx == USART2){
-		 RCC_USART2_CLK_Reset();
+		RCC_USART2_CLK_Reset();
 		NVIC_IRQ38_USART2_Disable;
+		Global_UART_Config[USART2_INDEX] = NULL;
 	}else if (USARTx == USART3){
 		RCC_USART3_CLK_Reset();
 		NVIC_IRQ39_USART3_Disable;
+		Global_UART_Config[USART3_INDEX] = NULL;
 	}
 }
 
@@ -162,11 +181,25 @@ void MCAL_UART_Deinit(volatile USART_t* USARTx){
 
 void MCAL_UART_Send_Data(volatile USART_t* USARTx ,uint16_t* pTxBuffer,PollingEn_t PollingEn){
 
+	uint8_t Local_u8Index;
+
+	if (USARTx == USART1)
+	{
+		Local_u8Index = USART1_INDEX;
+	}
+	else if (USARTx == USART2)
+	{
+		Local_u8Index = USART2_INDEX;
+	}
+	else
+	{
+		Local_u8Index = USART3_INDEX;
+	}
 	//wait until TXE falg is set in the SR
 	if(PollingEn == enable)
 		while (!(USARTx->SR & 1<<7));
 	//Check the USART_WordLength item for 9BIT in a frame
-	if(Global_UART_Config->Payload_Length == UART_Payload_Length_9B){
+	if(Global_UART_Config[Local_u8Index]->Payload_Length == UART_Payload_Length_9B){
 		USARTx->DR = (*pTxBuffer &(uint16_t)0x01FF);
 	}else {
 		//this is 8bit data transfer
@@ -176,13 +209,27 @@ void MCAL_UART_Send_Data(volatile USART_t* USARTx ,uint16_t* pTxBuffer,PollingEn
 }
 
 void MCAL_UART_Receive_Data(volatile USART_t* USARTx ,uint16_t* pRxBuffer,PollingEn_t PollingEn){
+	
+	uint8_t Local_u8Index;
 
+	if (USARTx == USART1)
+	{
+		Local_u8Index = USART1_INDEX;
+	}
+	else if (USARTx == USART2)
+	{
+		Local_u8Index = USART2_INDEX;
+	}
+	else
+	{
+		Local_u8Index = USART3_INDEX;
+	}
 	//wait until RXE falg is set in the SR
 	if(PollingEn == enable)
 		while(!(USARTx->SR & 1<<5));
 	//Check the USART_WordLength item for 9BIT in a frame
-	if(Global_UART_Config->Payload_Length == UART_Payload_Length_9B){
-		if (Global_UART_Config->parity == UART_Parity_NONE ){
+	if(Global_UART_Config[Local_u8Index]->Payload_Length == UART_Payload_Length_9B){
+		if (Global_UART_Config[Local_u8Index]->parity == UART_Parity_NONE ){
 			//no parity so all 9bit are considered data
 			*((uint16_t*)pRxBuffer ) = USARTx->DR &(uint16_t)0x1FF;
 		}else{
@@ -192,7 +239,7 @@ void MCAL_UART_Receive_Data(volatile USART_t* USARTx ,uint16_t* pRxBuffer,Pollin
 	}
 	//This is 8BIT in a frame
 	else {
-		if(Global_UART_Config->parity == UART_Parity_NONE){
+		if(Global_UART_Config[Local_u8Index]->parity == UART_Parity_NONE){
 			//no parity so all 8bit are considered data
 			*((uint16_t*)pRxBuffer ) = USARTx->DR &(uint8_t)0xFF;
 		}else {
@@ -211,7 +258,22 @@ void MCAL_UART_Receive_Data(volatile USART_t* USARTx ,uint16_t* pRxBuffer,Pollin
  */
 
 void MCAL_UART_GPIO_Set_Pin(volatile USART_t* USARTx){
+	
+	uint8_t Local_u8Index;
 
+	if (USARTx == USART1)
+	{
+		Local_u8Index = USART1_INDEX;
+	}
+	else if (USARTx == USART2)
+	{
+		Local_u8Index = USART2_INDEX;
+	}
+	else
+	{
+		Local_u8Index = USART3_INDEX;
+	}
+	
 	GPIO_PinConfig_t PinCfg;
 
 	if (USARTx == USART1){
@@ -232,13 +294,13 @@ void MCAL_UART_GPIO_Set_Pin(volatile USART_t* USARTx){
 		MCAL_GPIO_Init(GPIOA, &PinCfg);
 	}
 
-	if (Global_UART_Config->HwFlowCtl ==UART_HwFlowCtl_CTS || Global_UART_Config-> HwFlowCtl == UART_HwFlowCtl_RTS_CTS ){
+	if (Global_UART_Config[Local_u8Index]->HwFlowCtl ==UART_HwFlowCtl_CTS || Global_UART_Config[Local_u8Index]-> HwFlowCtl == UART_HwFlowCtl_RTS_CTS ){
 		//PA11 CTS
 		PinCfg.GPIO_PinNumber = GPIO_PIN_11;
 		PinCfg.GPIO_MODE = GPIO_MODE_INPUT_FLO;
 		MCAL_GPIO_Init(GPIOA, &PinCfg);
 		}
-	if (Global_UART_Config->HwFlowCtl ==UART_HwFlowCtl_CTS || Global_UART_Config-> HwFlowCtl == UART_HwFlowCtl_RTS_CTS ){
+	if (Global_UART_Config[Local_u8Index]->HwFlowCtl ==UART_HwFlowCtl_CTS || Global_UART_Config[Local_u8Index]-> HwFlowCtl == UART_HwFlowCtl_RTS_CTS ){
 		//PA12 RTS
 		PinCfg.GPIO_PinNumber = GPIO_PIN_12;
 		PinCfg.GPIO_MODE = GPIO_MODE_OUTPUT_AF_PP;
@@ -264,13 +326,13 @@ void MCAL_UART_GPIO_Set_Pin(volatile USART_t* USARTx){
 		MCAL_GPIO_Init(GPIOA, &PinCfg);
 	}
 
-	if (Global_UART_Config->HwFlowCtl ==UART_HwFlowCtl_CTS || Global_UART_Config-> HwFlowCtl == UART_HwFlowCtl_RTS_CTS ){
+	if (Global_UART_Config[Local_u8Index]->HwFlowCtl ==UART_HwFlowCtl_CTS || Global_UART_Config[Local_u8Index]-> HwFlowCtl == UART_HwFlowCtl_RTS_CTS ){
 		//PA0 CTS
 		PinCfg.GPIO_PinNumber = GPIO_PIN_0;
 		PinCfg.GPIO_MODE = GPIO_MODE_INPUT_FLO;
 		MCAL_GPIO_Init(GPIOA, &PinCfg);
 		}
-	if (Global_UART_Config->HwFlowCtl ==UART_HwFlowCtl_CTS || Global_UART_Config-> HwFlowCtl == UART_HwFlowCtl_RTS_CTS){
+	if (Global_UART_Config[Local_u8Index]->HwFlowCtl ==UART_HwFlowCtl_CTS || Global_UART_Config[Local_u8Index]-> HwFlowCtl == UART_HwFlowCtl_RTS_CTS){
 		//PA1 RTS
 		PinCfg.GPIO_PinNumber = GPIO_PIN_1;
 		PinCfg.GPIO_MODE = GPIO_MODE_OUTPUT_AF_PP;
@@ -297,13 +359,13 @@ void MCAL_UART_GPIO_Set_Pin(volatile USART_t* USARTx){
 			MCAL_GPIO_Init(GPIOB, &PinCfg);
 		}
 
-		if (Global_UART_Config->HwFlowCtl ==UART_HwFlowCtl_CTS || Global_UART_Config-> HwFlowCtl == UART_HwFlowCtl_RTS_CTS){
+		if (Global_UART_Config[Local_u8Index]->HwFlowCtl ==UART_HwFlowCtl_CTS || Global_UART_Config[Local_u8Index]-> HwFlowCtl == UART_HwFlowCtl_RTS_CTS){
 			//PB13 CTS
 			PinCfg.GPIO_PinNumber = GPIO_PIN_13;
 			PinCfg.GPIO_MODE = GPIO_MODE_INPUT_FLO;
 			MCAL_GPIO_Init(GPIOB, &PinCfg);
 			}
-		if (Global_UART_Config->HwFlowCtl ==UART_HwFlowCtl_CTS || Global_UART_Config-> HwFlowCtl == UART_HwFlowCtl_RTS_CTS){
+		if (Global_UART_Config[Local_u8Index]->HwFlowCtl ==UART_HwFlowCtl_CTS || Global_UART_Config[Local_u8Index]-> HwFlowCtl == UART_HwFlowCtl_RTS_CTS){
 			//PB14 RTS
 			PinCfg.GPIO_PinNumber = GPIO_PIN_14;
 			PinCfg.GPIO_MODE = GPIO_MODE_OUTPUT_AF_PP;
@@ -326,15 +388,27 @@ void MCAL_UART_WAIT_TC(volatile USART_t* USARTx){
 
 void USART1_IRQHandler(void)
 {
-	Global_UART_Config->P_IRQ_CalBack();
+    if ((Global_UART_Config[USART1_INDEX] != NULL) &&
+        (Global_UART_Config[USART1_INDEX]->P_IRQ_CalBack != NULL))
+    {
+        Global_UART_Config[USART1_INDEX]->P_IRQ_CalBack();
+    }
 }
 
 void USART2_IRQHandler(void)
 {
-	Global_UART_Config->P_IRQ_CalBack();
+    if ((Global_UART_Config[USART2_INDEX] != NULL) &&
+        (Global_UART_Config[USART2_INDEX]->P_IRQ_CalBack != NULL))
+    {
+        Global_UART_Config[USART2_INDEX]->P_IRQ_CalBack();
+    }
 }
 
 void USART3_IRQHandler(void)
 {
-	Global_UART_Config->P_IRQ_CalBack();
+    if ((Global_UART_Config[USART3_INDEX] != NULL) &&
+        (Global_UART_Config[USART3_INDEX]->P_IRQ_CalBack != NULL))
+    {
+        Global_UART_Config[USART3_INDEX]->P_IRQ_CalBack();
+    }
 }
