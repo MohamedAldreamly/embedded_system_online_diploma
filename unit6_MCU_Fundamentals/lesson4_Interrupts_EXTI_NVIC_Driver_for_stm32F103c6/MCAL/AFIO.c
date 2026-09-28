@@ -19,3 +19,10 @@ void AFIO_Init(void)
      */
     RCC_enumEnablePeripheralClock(APB2_BUS, AFIO_RCC);
 }
+
+	
+(PORTA&0x00000010)>>4
+(PORTA&0x00000020)>>5
+
+
+

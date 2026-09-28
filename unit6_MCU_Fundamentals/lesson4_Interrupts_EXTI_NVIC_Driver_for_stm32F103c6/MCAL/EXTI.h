@@ -97,24 +97,24 @@ typedef struct{
 #define EXTI_LINE_14 		14
 #define EXTI_LINE_15 		15
 
-#define EXTI0IRQn     6
-#define EXTI1IRQn     7
-#define EXTI2IRQn     8
-#define EXTI3IRQn     9
-#define EXTI4IRQn     10
+	#define EXTI0IRQn     6
+	#define EXTI1IRQn     7
+	#define EXTI2IRQn     8
+	#define EXTI3IRQn     9
+	#define EXTI4IRQn     10
 
-#define EXTI5IRQn     23
-#define EXTI6IRQn     23
-#define EXTI7IRQn     23
-#define EXTI8IRQn     23
-#define EXTI9IRQn     23
+	#define EXTI5IRQn     23
+	#define EXTI6IRQn     23
+	#define EXTI7IRQn     23
+	#define EXTI8IRQn     23
+	#define EXTI9IRQn     23
 
-#define EXTI10IRQn    40
-#define EXTI11IRQn    40
-#define EXTI12IRQn    40
-#define EXTI13IRQn    40
-#define EXTI14IRQn    40
-#define EXTI15IRQn    40
+	#define EXTI10IRQn    40
+	#define EXTI11IRQn    40
+	#define EXTI12IRQn    40
+	#define EXTI13IRQn    40
+	#define EXTI14IRQn    40
+	#define EXTI15IRQn    40
 
 EXTI_STATE_t EXTI_enumInit(uint8 Copy_u8EXTILine, uint8 Copy_u8Port, uint8 Copy_u8EXTISenseMode , EXTI_Callback Copy_EXTI_CallBack) ;                                 
 EXTI_STATE_t EXTI_enumSetSignalLatch (uint8 Copy_u8EXTILine , uint8 Copy_u8EXTISenseMode);
@@ -123,7 +123,5 @@ EXTI_STATE_t EXTI_enumDisableEXTI    (uint8 Copy_u8EXTILine                     
 
 EXTI_STATE_t EXTI_enumSetCallBack(uint8 Copy_u8EXTILine, EXTI_Callback Copy_EXTI_CallBack);
 
-
 #endif /*	EXTI_H_	*/
- 
  
