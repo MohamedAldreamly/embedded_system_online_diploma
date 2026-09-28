@@ -164,5 +164,24 @@ bool HAL_EEPROM_AddUser(const User_t *user);
  */
 bool HAL_EEPROM_UpdateUser(const User_t *user);
 
+/**
+ * @brief Get the number of registered users stored in EEPROM.
+ *
+ * @return Number of registered users.
+ */
+uint8_t HAL_EEPROM_GetUserCount(void);
+
+
+/**
+ * @brief Read a registered user using its database index.
+ *
+ * @param[in]  index User index in EEPROM database.
+ * @param[out] user  Pointer to receive user data.
+ *
+ * @return true  User read successfully.
+ * @return false Invalid index or read failure.
+ */
+bool HAL_EEPROM_GetUserByIndex(uint8_t index,
+                               User_t *user);
 
 #endif /* INC_HAL_EEPROM_H_ */

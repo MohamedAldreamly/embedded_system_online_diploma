@@ -68,4 +68,11 @@ bool ParkingData_AddUser(const User_t *user);
 bool ParkingData_UpdateUser(const User_t *user);
 
 
+/**
+ * @brief Get the current number of users inside the parking area.
+ *
+ * @return Number of users currently marked as USER_INSIDE.
+ */
+uint8_t ParkingData_GetOccupancy(void);
+
 #endif /* PARKING_DATA_H_ */

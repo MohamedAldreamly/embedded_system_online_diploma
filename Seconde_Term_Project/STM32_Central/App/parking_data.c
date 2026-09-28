@@ -63,3 +63,34 @@ bool ParkingData_UpdateUser(const User_t *user)
 
     return HAL_EEPROM_UpdateUser(user);
 }
+
+uint8_t ParkingData_GetOccupancy(void)
+{
+    uint8_t Local_u8UserCount;
+    uint8_t Local_u8Index;
+    uint8_t Local_u8Occupancy = 0U;
+
+    User_t Local_User;
+
+
+    Local_u8UserCount =
+            HAL_EEPROM_GetUserCount();
+
+
+    for (Local_u8Index = 0U;
+         Local_u8Index < Local_u8UserCount;
+         Local_u8Index++)
+    {
+        if (HAL_EEPROM_GetUserByIndex(Local_u8Index,
+                                      &Local_User) == true)
+        {
+            if (Local_User.state == USER_INSIDE)
+            {
+                Local_u8Occupancy++;
+            }
+        }
+    }
+
+
+    return Local_u8Occupancy;
+}

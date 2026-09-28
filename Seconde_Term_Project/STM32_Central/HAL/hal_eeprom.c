@@ -726,3 +726,43 @@ bool HAL_EEPROM_UpdateUser(const User_t *user)
     return EEPROM_WriteUserRecord((uint8_t)Local_s16Index,
                                   user);
 }
+
+uint8_t HAL_EEPROM_GetUserCount(void)
+{
+    uint8_t Local_u8UserCount = 0U;
+
+    if (EEPROM_ReadUserCount(&Local_u8UserCount) == false)
+    {
+        return 0U;
+    }
+
+    if (Local_u8UserCount > MAX_REGISTERED_USERS)
+    {
+        return 0U;
+    }
+
+    return Local_u8UserCount;
+}
+
+
+bool HAL_EEPROM_GetUserByIndex(uint8_t index,
+                               User_t *user)
+{
+    uint8_t Local_u8UserCount;
+
+    if (user == NULL)
+    {
+        return false;
+    }
+
+    Local_u8UserCount = HAL_EEPROM_GetUserCount();
+
+    if (index >= Local_u8UserCount)
+    {
+        return false;
+    }
+
+    return EEPROM_ReadUserRecord(index,
+                                 user);
+}
+

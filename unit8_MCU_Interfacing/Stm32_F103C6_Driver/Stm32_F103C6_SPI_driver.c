@@ -228,14 +228,12 @@ void MCAL_SPI_Set_Pin(volatile SPI_t *SPIx ){
 		}else	//Slave
 		{
 			//PA4 : SPI1_NSS
-			if (Global_SPI_Config[SPI2_INDEX]->Device_Mode == SPI_Device_Mode_MASTER){
 
 			//Haedware master/slave Input floating
 			PinCfg.GPIO_PinNumber = GPIO_PIN_4;
 			PinCfg.GPIO_MODE = GPIO_MODE_INPUT_FLO;
 			MCAL_GPIO_Init(GPIOA, &PinCfg);
-
-			}
+			
 			//PA5 : SPI1_SCK
 			// Slave input FLO
 			PinCfg.GPIO_PinNumber = GPIO_PIN_5;
@@ -259,7 +257,6 @@ void MCAL_SPI_Set_Pin(volatile SPI_t *SPIx ){
 
 		}
 
-
 	}
 
 		if(SPIx==SPI2){
@@ -271,7 +268,7 @@ void MCAL_SPI_Set_Pin(volatile SPI_t *SPIx ){
 			//PB12 : SPI2_NSS
 
 			if (Global_SPI_Config[SPI2_INDEX]->Device_Mode == SPI_Device_Mode_MASTER){
-				switch(Global_SPI_Config[SPI1_INDEX]->NSS){
+				switch(Global_SPI_Config[SPI2_INDEX]->NSS){
 					case SPI_NSS_Hard_Master_SS_Output_enable:
 						//Haedware master/slave Input floating
 						PinCfg.GPIO_PinNumber = GPIO_PIN_12;
@@ -296,36 +293,34 @@ void MCAL_SPI_Set_Pin(volatile SPI_t *SPIx ){
 				PinCfg.GPIO_Output_Speed = GPIO_SPEED_10M;
 				MCAL_GPIO_Init(GPIOB, &PinCfg);
 
-				//PA6 : SPI1_MISO (support only full duplex)
+				//PB14 : SPI2_MISO (support only full duplex)
 				// full duplex / master input FLO
-				PinCfg.GPIO_PinNumber = GPIO_PIN_1;
+				PinCfg.GPIO_PinNumber = GPIO_PIN_14;
 				PinCfg.GPIO_MODE = GPIO_MODE_INPUT_FLO;
 				MCAL_GPIO_Init(GPIOB, &PinCfg);
 				//todo to support half duplex and simplex
 
-				//PA7 : SPI1_MOSI
+				//PB15 : SPI2_MOSI
 				// full duplex / master AL Push-Pull
-				PinCfg.GPIO_PinNumber = GPIO_PIN_7;
+				PinCfg.GPIO_PinNumber = GPIO_PIN_15;
 				PinCfg.GPIO_MODE = GPIO_MODE_OUTPUT_AF_PP;
 				PinCfg.GPIO_Output_Speed = GPIO_SPEED_10M;
-				MCAL_GPIO_Init(GPIOA, &PinCfg);
+				MCAL_GPIO_Init(GPIOB, &PinCfg);
 
 			}else	//Slave
 			{
 				//PB13 : SPI2_SCK
-				if (Global_SPI_Config[SPI2_INDEX]->Device_Mode == SPI_Device_Mode_MASTER){
 
 				//Haedware master/slave Input floating
 				PinCfg.GPIO_PinNumber = GPIO_PIN_4;
 				PinCfg.GPIO_MODE = GPIO_MODE_INPUT_FLO;
-				MCAL_GPIO_Init(GPIOA, &PinCfg);
+				MCAL_GPIO_Init(GPIOB, &PinCfg);
 
-				}
 				//PB13 : SPI2_SCK
 				// Slave input FLO
 				PinCfg.GPIO_PinNumber = GPIO_PIN_5;
 				PinCfg.GPIO_MODE = GPIO_MODE_INPUT_FLO;
-				MCAL_GPIO_Init(GPIOA, &PinCfg);
+				MCAL_GPIO_Init(GPIOB, &PinCfg);
 
 				//PB14 : SPI2_MISO (support only full duplex)
 					// full duplex / Slave (point to point) AL Push-Pull
@@ -358,19 +353,19 @@ void SPI1_IRQHandler(void)
 {
 	struct S_IRQ_SRC irq_src;
 	irq_src.TXE = ((SPI1->SR &(1<<1))>>1);
-	irq_src.RXNE = ((SPI1->SR &(1<<1))>>0);
+	irq_src.RXNE = ((SPI1->SR &(1<<0))>>0);
 	irq_src.ERRI = ((SPI1->SR &(1<<1))>>4);
 
 
 	Global_SPI_Config[SPI1_INDEX]->P_IRQ_CallBack(irq_src);
 }
 
-void SPI(void)
+void SPI2_IRQHandler(void)
 {
 	struct S_IRQ_SRC irq_src;
-	irq_src.TXE = ((SPI1->SR &(1<<1))>>1);
-	irq_src.RXNE = ((SPI1->SR &(1<<1))>>0);
-	irq_src.ERRI = ((SPI1->SR &(1<<1))>>4);
+	irq_src.TXE = ((SPI2->SR &(1<<1))>>1);
+	irq_src.RXNE = ((SPI2->SR &(1<<0))>>0);
+	irq_src.ERRI = ((SPI2->SR &(1<<1))>>4);
 
 	Global_SPI_Config[SPI2_INDEX]->P_IRQ_CallBack(irq_src);
 }
