@@ -3,38 +3,25 @@
  * @project     Smart Parking System
  * @version     1.0.0
  *
- * @author      Mohamed
+ * @author      Mohamed Aldreamly
  * @date        28 September 2026
  *
  * @ecu         STM32 Central ECU
  * @layer       Application Layer
  * @module      Parking Data Manager
  *
- * @path        Smart_Parking_System/STM32_Central/App/parking_data.h
+ * @path        STM32_Central/App/parking_data.h
  *
  * @brief
- * Public interface of the Parking Data Manager.
+ * Public interface for persistent parking user data.
  *
- * The Parking Data Manager provides application-level access to persistent
- * parking user data.
- *
- * User records are physically stored in EEPROM and accessed through the
- * EEPROM HAL interface.
- *
- * This module does NOT maintain a local user database and does NOT perform
- * authentication or access-control decisions.
- *
- * Access Control is responsible for processing the returned user data and
- * making authentication and parking-access decisions.
- *
+ * This module provides the Application Layer with simple operations
+ * for reading, adding and updating registered users without exposing
+ * EEPROM implementation details.
  ******************************************************************************/
 
 #ifndef PARKING_DATA_H_
 #define PARKING_DATA_H_
-
-/******************************************************************************
- * Includes
- ******************************************************************************/
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -43,41 +30,40 @@
 
 
 /******************************************************************************
- * Public Function Prototypes
+ * Public APIs
  ******************************************************************************/
 
 /**
- * @brief Retrieve a user record using the User ID.
+ * @brief Get a registered user using the User ID.
  *
- * The user record is obtained from persistent storage through the EEPROM HAL.
+ * @param[in]  userID User ID to search for.
+ * @param[out] user   Pointer to receive the complete user record.
  *
- * @param userID  ID of the requested user.
- * @param user    Destination structure for the retrieved user data.
- *
- * @return true   User was found and retrieved successfully.
- * @return false  User was not found or storage access failed.
+ * @return true  User found successfully.
+ * @return false User not found or data read failed.
  */
-bool ParkingData_GetUser(uint32_t userID, User_t *user);
+bool ParkingData_GetUser(uint32_t userID,
+                         User_t *user);
 
 
 /**
- * @brief Add a new user record to persistent storage.
+ * @brief Add a new registered user.
  *
- * @param user Pointer to the new user record.
+ * @param[in] user Pointer to the new user record.
  *
- * @return true  User stored successfully.
- * @return false Operation failed.
+ * @return true  User added successfully.
+ * @return false User could not be added.
  */
 bool ParkingData_AddUser(const User_t *user);
 
 
 /**
- * @brief Update an existing user record in persistent storage.
+ * @brief Update an existing registered user.
  *
- * @param user Pointer to the updated user record.
+ * @param[in] user Pointer to the updated user record.
  *
  * @return true  User updated successfully.
- * @return false Operation failed.
+ * @return false User not found or update failed.
  */
 bool ParkingData_UpdateUser(const User_t *user);
 

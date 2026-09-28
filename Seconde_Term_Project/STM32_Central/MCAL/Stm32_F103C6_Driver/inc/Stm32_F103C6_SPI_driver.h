@@ -90,7 +90,7 @@ typedef struct{
 
 // @ref SPI CLKPhase
 #define SPI_CLKPhase_1EDGE_frist_capture_egde		(0x00000000U)
-#define SPI_CLKPhase_2EDGE_frist_capture_egde		(0x1U<<1	)//CR1.Bit 0 CPHA: Clock phase
+#define SPI_CLKPhase_2EDGE_frist_capture_egde		(0x1U<<0	)//CR1.Bit 0 CPHA: Clock phase
 
 //@ref SPI_NSS SPI Slave Seclect Management
 //Hardware
