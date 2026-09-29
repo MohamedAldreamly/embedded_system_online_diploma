@@ -75,4 +75,27 @@ bool ParkingData_UpdateUser(const User_t *user);
  */
 uint8_t ParkingData_GetOccupancy(void);
 
+
+/**
+ * @brief Check whether an RFID UID is already registered.
+ *
+ * @param[in] rfidUID RFID UID to search for.
+ *
+ * @return true  RFID already exists.
+ * @return false RFID is not registered.
+ */
+bool ParkingData_RFIDExists(uint32_t rfidUID);
+
+
+/**
+ * @brief Seed the EEPROM database with the default prototype users.
+ *
+ * The users are added only when the database is empty. Existing EEPROM
+ * contents are preserved across reset/restart.
+ *
+ * @return true  Database already initialized or users added successfully.
+ * @return false One or more users could not be added.
+ */
+bool ParkingData_SeedDefaultUsers(void);
+
 #endif /* PARKING_DATA_H_ */

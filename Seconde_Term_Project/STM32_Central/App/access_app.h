@@ -4,9 +4,10 @@
  * @version     1.0.0
  *
  * @author      Mohamed Aldreamly
- * @date        28 September 2026
+ * @date        29 September 2026
  *
  * @ecu         STM32 Central ECU
+ * @mcu         STM32F103C6
  * @layer       Application Layer
  * @module      Access Control
  *
@@ -15,16 +16,37 @@
  * @brief
  * Public interface for the Smart Parking access-control logic.
  *
- * This module validates registered users, verifies RFID ownership,
- * checks entry/exit eligibility and updates the persistent parking state.
+ * Responsibilities:
+ * - Validate registered User IDs.
+ * - Verify RFID ownership.
+ * - Check entry and exit eligibility.
+ * - Register new users.
+ * - Update the persistent parking state after completed passage.
  ******************************************************************************/
 
 #ifndef ACCESS_APP_H_
 #define ACCESS_APP_H_
 
+
 #include <stdint.h>
+#include <stdbool.h>
 
 #include "system_types.h"
+
+
+/******************************************************************************
+ * Add User Result
+ ******************************************************************************/
+
+typedef enum
+{
+    ADD_USER_OK = 0,
+    ADD_USER_ALREADY_EXISTS,
+    ADD_USER_RFID_ALREADY_EXISTS,
+    ADD_USER_DATABASE_FULL,
+    ADD_USER_FAILED
+
+} AddUserResult_t;
 
 
 /******************************************************************************
@@ -68,6 +90,20 @@ AccessResult_t Access_ValidateRFID(uint32_t userID,
  */
 bool Access_CompleteTransaction(uint32_t userID,
                                 ECU_Source_t source);
+
+
+/**
+ * @brief Register a new parking user.
+ *
+ * The new user is initially stored as USER_OUTSIDE.
+ *
+ * @param[in] userID  New User ID.
+ * @param[in] rfidUID RFID UID assigned to the new user.
+ *
+ * @return Result of the registration operation.
+ */
+AddUserResult_t Access_AddUser(uint32_t userID,
+                               uint32_t rfidUID);
 
 
 #endif /* ACCESS_APP_H_ */

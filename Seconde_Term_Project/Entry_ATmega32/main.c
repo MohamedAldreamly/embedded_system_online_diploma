@@ -4,16 +4,22 @@
  * @version     1.0.0
  *
  * @author      Mohamed Aldreamly
- * @date        28 September 2026
+ * @date        29 September 2026
  *
  * @ecu         ATmega32 Entry ECU
  * @mcu         ATmega32
  * @layer       Application
+ * @module      Main
  *
- * @path        Entry_ATmega32/main.c
+ * @path        Entry_ATmega32/App/main.c
  *
  * @brief
- * Main entry point for the Smart Parking System Entry ECU.
+ * Entry ECU system entry point and cooperative scheduler.
+ *
+ * @responsibility
+ * - Initialize the Entry ECU application.
+ * - Enable global interrupts.
+ * - Execute the Entry ECU state machine continuously.
  ******************************************************************************/
 
 #include "entry_app.h"
@@ -24,26 +30,29 @@
 int main(void)
 {
     /*
-     * Initialize the Entry application and
-     * all required modules.
+     * Initialize:
+     * - UART communication
+     * - Keypad
+     * - RFID
+     * - Gate
+     * - IR sensor
+     * - LCD
+     * - Timer0
+     * - Entry state machine
      */
     EntryApp_Init();
 
 
     /*
-     * Enable global interrupts.
-     *
-     * UART reception depends on the
-     * USART RX Complete interrupt.
+     * Required for:
+     * - UART RX interrupt
+     * - Timer0 1 ms interrupt
      */
     sei();
 
 
     while (1)
     {
-        /*
-         * Cooperative application scheduler.
-         */
         EntryApp_Update();
     }
 

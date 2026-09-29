@@ -4,9 +4,10 @@
  * @version     1.0.0
  *
  * @author      Mohamed Aldreamly
- * @date        28 September 2026
+ * @date        29 September 2026
  *
  * @ecu         STM32 Central ECU
+ * @mcu         STM32F103C6
  * @layer       Application Layer
  * @module      Access Control
  *
@@ -15,12 +16,13 @@
  * @brief
  * Implementation of the Smart Parking access-control logic.
  *
- * This module is responsible for:
- * - Validating registered User IDs.
- * - Verifying RFID ownership.
- * - Checking entry and exit eligibility.
- * - Checking parking capacity before entry.
- * - Updating the user's parking state after a completed passage.
+ * Responsibilities:
+ * - Validate registered User IDs.
+ * - Verify RFID ownership.
+ * - Check entry and exit eligibility.
+ * - Check parking capacity before entry.
+ * - Register new users.
+ * - Update the user's parking state after completed passage.
  ******************************************************************************/
 
 #include "access_app.h"
@@ -28,17 +30,9 @@
 
 
 /******************************************************************************
- * Public Functions
+ * Validate User ID
  ******************************************************************************/
 
-/**
- * @brief Validate a registered User ID.
- *
- * @param[in] userID User ID received from Entry or Exit ECU.
- *
- * @return ACCESS_ID_VALID if the user is registered.
- * @return ACCESS_INVALID_ID if the user is not registered.
- */
 AccessResult_t Access_ValidateID(uint32_t userID)
 {
     User_t Local_User;
@@ -49,36 +43,27 @@ AccessResult_t Access_ValidateID(uint32_t userID)
     {
         return ACCESS_INVALID_ID;
     }
+	
 
 
     return ACCESS_ID_VALID;
 }
 
 
-/**
- * @brief Validate RFID and determine entry or exit eligibility.
- *
- * The function first verifies that the RFID belongs to the supplied
- * User ID, then applies the required entry or exit rules.
- *
- * RFID retry counting is handled by the Entry/Exit ECU session logic,
- * not by the central Access Control module.
- *
- * @param[in] userID  Previously entered User ID.
- * @param[in] rfidUID RFID UID received from the gate ECU.
- * @param[in] source  ECU requesting access (Entry or Exit).
- *
- * @return Access decision represented by AccessResult_t.
- */
+/******************************************************************************
+ * Validate RFID And Access Eligibility
+ ******************************************************************************/
+
 AccessResult_t Access_ValidateRFID(uint32_t userID,
                                   uint32_t rfidUID,
                                   ECU_Source_t source)
 {
     User_t Local_User;
-	
 
-    /* Get the registered user data. */
 
+    /*
+     * Get the registered user data.
+     */
     if (ParkingData_GetUser(userID,
                             &Local_User) == false)
     {
@@ -86,23 +71,23 @@ AccessResult_t Access_ValidateRFID(uint32_t userID,
     }
 
 
-    /* Verify that the RFID belongs to the supplied User ID. */
-
+    /*
+     * Verify that the RFID belongs to the supplied User ID.
+     */
     if (Local_User.rfidUID != rfidUID)
     {
         return ACCESS_WRONG_CARD;
-		
     }
-	
 
 
-    /* ========================= ENTRY REQUEST ========================= */
+    /* =====================================================
+     * ENTRY REQUEST
+     * ===================================================== */
 
     if (source == SOURCE_ENTRY)
     {
         /*
-         * A user already inside the parking area
-         * cannot perform another entry.
+         * User already inside cannot enter again.
          */
         if (Local_User.state == USER_INSIDE)
         {
@@ -110,8 +95,9 @@ AccessResult_t Access_ValidateRFID(uint32_t userID,
         }
 
 
-        /* Check available parking capacity. */
-
+        /*
+         * Check available parking capacity.
+         */
         if (ParkingData_GetOccupancy() >= PARKING_CAPACITY)
         {
             return ACCESS_PARKING_FULL;
@@ -122,13 +108,14 @@ AccessResult_t Access_ValidateRFID(uint32_t userID,
     }
 
 
-    /* ========================== EXIT REQUEST ========================= */
+    /* =====================================================
+     * EXIT REQUEST
+     * ===================================================== */
 
     if (source == SOURCE_EXIT)
     {
         /*
-         * A user currently outside the parking area
-         * cannot perform an exit.
+         * User already outside cannot perform an exit.
          */
         if (Local_User.state == USER_OUTSIDE)
         {
@@ -140,38 +127,26 @@ AccessResult_t Access_ValidateRFID(uint32_t userID,
     }
 
 
-    /* Reject requests from an invalid ECU source. */
-
+    /*
+     * Invalid ECU source.
+     */
     return ACCESS_DENIED;
 }
 
 
-/**
- * @brief Complete a successful entry or exit transaction.
- *
- * This function must be called only after the vehicle has actually
- * completed passage through the gate.
- *
- * For Entry:
- *     USER_OUTSIDE -> USER_INSIDE
- *
- * For Exit:
- *     USER_INSIDE -> USER_OUTSIDE
- *
- * @param[in] userID User whose state must be updated.
- * @param[in] source ECU that completed the transaction.
- *
- * @return true  User state updated successfully.
- * @return false User not found, invalid source, or EEPROM update failed.
- */
+/******************************************************************************
+ * Complete Entry / Exit Transaction
+ ******************************************************************************/
+
 bool Access_CompleteTransaction(uint32_t userID,
                                 ECU_Source_t source)
 {
     User_t Local_User;
 
 
-    /* Get the current persistent user data. */
-
+    /*
+     * Get current persistent user data.
+     */
     if (ParkingData_GetUser(userID,
                             &Local_User) == false)
     {
@@ -179,8 +154,9 @@ bool Access_CompleteTransaction(uint32_t userID,
     }
 
 
-    /* Update parking state according to transaction source. */
-
+    /*
+     * Update user parking state.
+     */
     if (source == SOURCE_ENTRY)
     {
         Local_User.state = USER_INSIDE;
@@ -195,7 +171,85 @@ bool Access_CompleteTransaction(uint32_t userID,
     }
 
 
-    /* Save the updated user state in persistent memory. */
-
+    /*
+     * Save updated user state to EEPROM.
+     */
     return ParkingData_UpdateUser(&Local_User);
+}
+
+
+/******************************************************************************
+ * Register New User
+ ******************************************************************************/
+
+AddUserResult_t Access_AddUser(uint32_t userID,
+                               uint32_t rfidUID)
+{
+    User_t Local_User;
+
+
+    /*
+     * Do not allow an invalid zero ID.
+     */
+    if (userID == 0UL)
+    {
+        return ADD_USER_FAILED;
+    }
+
+
+    /*
+     * Do not allow an invalid zero RFID UID.
+     */
+    if (rfidUID == 0UL)
+    {
+        return ADD_USER_FAILED;
+    }
+
+
+    /*
+     * User ID must be unique.
+     *
+     * If ParkingData_GetUser() succeeds, the ID is already
+     * registered in EEPROM.
+     */
+    if (ParkingData_GetUser(userID,
+                            &Local_User) == true)
+    {
+        return ADD_USER_ALREADY_EXISTS;
+    }
+	
+	
+	if (ParkingData_RFIDExists(rfidUID) == true)
+	{
+		return ADD_USER_RFID_ALREADY_EXISTS;
+	}
+
+    /*
+     * Build the new persistent user record.
+     *
+     * Every newly registered user starts OUTSIDE the parking
+     * area. The state changes to USER_INSIDE only after a real
+     * successful Entry transaction is completed.
+     */
+    Local_User.userID = userID;
+    Local_User.rfidUID = rfidUID;
+    Local_User.state = USER_OUTSIDE;
+
+
+    /*
+     * Store the new user through Parking Data Manager.
+     */
+    if (ParkingData_AddUser(&Local_User) == false)
+    {
+        /*
+         * At the current abstraction level, AddUser returning
+         * false means the record could not be stored.
+         *
+         * This includes a full database/storage failure.
+         */
+        return ADD_USER_DATABASE_FULL;
+    }
+
+
+    return ADD_USER_OK;
 }

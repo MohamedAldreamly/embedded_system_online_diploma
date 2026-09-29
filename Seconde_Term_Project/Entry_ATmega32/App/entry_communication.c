@@ -6,7 +6,7 @@
  * @author      Mohamed Aldreamly
  * @date        28 September 2026
  *
- * @ecu         ATmega32 Entry / Exit ECU
+ * @ecu         ATmega32 Entry 
  * @layer       Application Layer
  * @module      ECU Communication
  *
@@ -15,8 +15,8 @@
  * and the STM32 Central ECU using the common Smart Parking protocol.
  ******************************************************************************/
 
-#include "ecu_communication.h"
 #include "atmega32_uart_driver.h"
+#include "entry_communication.h"
 	
 #include <stddef.h>
 

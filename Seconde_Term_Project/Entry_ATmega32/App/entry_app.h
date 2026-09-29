@@ -4,9 +4,10 @@
  * @version     1.0.0
  *
  * @author      Mohamed Aldreamly
- * @date        28 September 2026
+ * @date        29 September 2026
  *
  * @ecu         ATmega32 Entry ECU
+ * @mcu         ATmega32
  * @layer       Application Layer
  * @module      Entry Application
  *
@@ -18,6 +19,7 @@
 
 #ifndef ENTRY_APP_H_
 #define ENTRY_APP_H_
+
 
 /******************************************************************************
  * Public APIs

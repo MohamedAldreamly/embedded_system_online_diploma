@@ -6,7 +6,7 @@
  * @author      Mohamed Aldreamly
  * @date        28 September 2026
  *
- * @ecu         ATmega32 Entry / Exit ECU
+ * @ecu         ATmega32 Entry 
  * @layer       Application Layer
  * @module      ECU Communication
  *

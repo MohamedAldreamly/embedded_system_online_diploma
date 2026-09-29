@@ -94,3 +94,63 @@ uint8_t ParkingData_GetOccupancy(void)
 
     return Local_u8Occupancy;
 }
+
+bool ParkingData_RFIDExists(uint32_t rfidUID)
+{
+    uint8_t Local_UserCount;
+    uint8_t Local_Index;
+    User_t Local_User;
+
+
+    Local_UserCount =
+        HAL_EEPROM_GetUserCount();
+
+
+    for (Local_Index = 0U;
+         Local_Index < Local_UserCount;
+         Local_Index++)
+    {
+        if (HAL_EEPROM_GetUserByIndex(Local_Index,
+                                      &Local_User) == true)
+        {
+            if (Local_User.rfidUID == rfidUID)
+            {
+                return true;
+            }
+        }
+    }
+
+
+    return false;
+}
+
+bool ParkingData_SeedDefaultUsers(void)
+{
+    static const User_t Local_DefaultUsers[] =
+    {
+        {1111UL, 0x31313131UL, USER_OUTSIDE},
+        {2222UL, 0x32323232UL, USER_OUTSIDE},
+        {3333UL, 0x33333333UL, USER_OUTSIDE}
+    };
+
+    uint8_t Local_Index;
+
+    /* Preserve any database that has already been initialized. */
+    if (HAL_EEPROM_GetUserCount() != 0U)
+    {
+        return true;
+    }
+
+    for (Local_Index = 0U;
+         Local_Index < (uint8_t)(sizeof(Local_DefaultUsers) / sizeof(Local_DefaultUsers[0]));
+         Local_Index++)
+    {
+        if (HAL_EEPROM_AddUser(&Local_DefaultUsers[Local_Index]) == false)
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+

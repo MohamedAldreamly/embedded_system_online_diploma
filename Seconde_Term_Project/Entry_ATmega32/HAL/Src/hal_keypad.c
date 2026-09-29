@@ -4,7 +4,7 @@
  * @version     1.0.0
  *
  * @author      Mohamed Aldreamly
- * @date        28 September 2026
+ * @date        29 September 2026
  *
  * @ecu         ATmega32 Entry ECU
  * @mcu         ATmega32
@@ -66,11 +66,27 @@ static const uint8_t KeypadColumns[KEYPAD_COLS] =
 };
 
 
+/*
+ * Proteus calculator keypad physical layout:
+ *
+ *      7   8   9   /
+ *      4   5   6   X
+ *      1   2   3   -
+ *    ON/C  0   =   +
+ *
+ * Application mapping:
+ *      /    -> 'A'  (User Mode)
+ *      X    -> 'B'  (Add User Mode)
+ *      -    -> 'C'
+ *      +    -> 'D'
+ *      ON/C -> '*'  (Clear)
+ *      =    -> '#'  (Confirm / OK)
+ */
 static const char KeypadMap[KEYPAD_ROWS][KEYPAD_COLS] =
 {
-    {'1', '2', '3', 'A'},
+    {'7', '8', '9', 'A'},
     {'4', '5', '6', 'B'},
-    {'7', '8', '9', 'C'},
+    {'1', '2', '3', 'C'},
     {'*', '0', '#', 'D'}
 };
 

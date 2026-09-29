@@ -1,0 +1,33 @@
+# Build outputs
+**/build/
+**/biuld/
+**/Debug/
+**/Release/
+
+# Compiled binaries
+*.o
+*.obj
+*.elf
+*.hex
+*.bin
+*.map
+*.lst
+*.d
+*.su
+
+# Keil generated files
+*.axf
+*.uvguix.*
+*.uvoptx
+*.dep
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Proteus temporary / backup files
+*.pdsbak
+*.workspace
+*.log

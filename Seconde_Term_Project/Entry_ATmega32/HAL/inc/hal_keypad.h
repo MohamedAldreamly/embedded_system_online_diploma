@@ -4,7 +4,7 @@
  * @version     1.0.0
  *
  * @author      Mohamed Aldreamly
- * @date        28 September 2026
+ * @date        29 September 2026
  *
  * @ecu         ATmega32 Entry ECU
  * @mcu         ATmega32
@@ -15,6 +15,8 @@
  *
  * @brief
  * 4x4 matrix keypad interface used by the Entry ECU.
+ * Proteus calculator keypad mapping:
+ * ON/C = Clear (*), '=' = Confirm (#), '/' = A, 'X' = B.
  ******************************************************************************/
 
 #ifndef HAL_KEYPAD_H_

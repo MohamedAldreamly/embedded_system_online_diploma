@@ -4,9 +4,10 @@
  * @version     1.0.0
  *
  * @author      Mohamed Aldreamly
- * @date        28 September 2026
+ * @date        29 September 2026
  *
  * @ecu         STM32 Central ECU
+ * @mcu         STM32F103C6
  * @layer       Application Layer
  * @module      Communication Manager
  *
@@ -16,11 +17,12 @@
  * Central communication manager interface.
  *
  * This module manages communication between the STM32 Central ECU
- * and the Entry/Exit ECUs.
+ * and the Entry/Exit ATmega32 ECUs.
  ******************************************************************************/
 
 #ifndef COMMUNICATION_H_
 #define COMMUNICATION_H_
+
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -42,6 +44,13 @@ void Communication_Init(void);
 /**
  * @brief Process a received parking-system request.
  *
+ * Supported requests:
+ * - ID authentication.
+ * - RFID authentication.
+ * - Add new user.
+ * - Entry completion.
+ * - Exit completion.
+ *
  * @param[in]  request  Received application packet.
  * @param[out] response Generated response packet.
  *
@@ -53,10 +62,9 @@ bool Communication_ProcessMessage(const ParkingPacket_t *request,
 
 
 /**
- * @brief Main communication processing function.
+ * @brief Process complete UART frames received from Entry and Exit ECUs.
  *
- * This function processes complete frames received by UART interrupts.
- * It should be called periodically from the main application loop.
+ * This function shall be called periodically from the main application loop.
  */
 void Communication_Update(void);
 
