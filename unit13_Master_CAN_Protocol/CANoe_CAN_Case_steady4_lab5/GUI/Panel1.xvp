@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Panel Type="Vector.CANalyzer.Panels.PanelSerializer, Vector.CANalyzer.Panels.Serializer, Version=19.6.18.0, Culture=neutral, PublicKeyToken=null">
+  <Object Type="Vector.CANalyzer.Panels.Runtime.Panel, Vector.CANalyzer.Panels.Common, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Panel" ControlName="Panel1">
+    <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X182ac770e448ee4fc6e9054e058dc34fbf48" ControlName="Static Text 3">
+      <Property Name="Name">X182ac770e448ee4fc6e9054e058dc34fbf48</Property>
+      <Property Name="Size">66, 35</Property>
+      <Property Name="Location">91, 217</Property>
+      <Property Name="Font">Microsoft Sans Serif, 15pt</Property>
+      <Property Name="Text">Speed</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.MeterControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X71c474a4ef450e4684e8609e808e387405f0" ControlName="Meter 1">
+      <Property Name="Name">X71c474a4ef450e4684e8609e808e387405f0</Property>
+      <Property Name="Size">117, 113</Property>
+      <Property Name="Location">71, 98</Property>
+      <Property Name="SymbolConfiguration">8;2;CaNone;ECU2_SpeedSensor;Speed_Val_message;Speed;1;CAN;;-1;;;Value;;;0</Property>
+      <Property Name="ScaleMax">255</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X1573dce4ef7cbe4f61e9cb9e047e794a1cfe" ControlName="Static Text 2">
+      <Property Name="Name">X1573dce4ef7cbe4f61e9cb9e047e794a1cfe</Property>
+      <Property Name="Size">51, 48</Property>
+      <Property Name="Location">428, 217</Property>
+      <Property Name="Font">Microsoft Sans Serif, 15pt</Property>
+      <Property Name="Text">ACC
+</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xe11ac0c0ea0a6e424fe94cfee114821f5e73" ControlName="Static Text 1">
+      <Property Name="Name">Xe11ac0c0ea0a6e424fe94cfee114821f5e73</Property>
+      <Property Name="Size">158, 25</Property>
+      <Property Name="Location">202, 33</Property>
+      <Property Name="Font">Microsoft Sans Serif, 15pt</Property>
+      <Property Name="Text">GUI Master CAN</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X86862cf6ef825e48c2e9e43e9628f6c9fa35" ControlName="Switch / Indicator 1">
+      <Property Name="Name">X86862cf6ef825e48c2e9e43e9628f6c9fa35</Property>
+      <Property Name="Size">79, 103</Property>
+      <Property Name="Location">400, 98</Property>
+      <Property Name="SymbolConfiguration">8;16;;;;ACC_System_VAL;1;;;-1;;;Value;;;0</Property>
+      <Property Name="TabIndex">1</Property>
+      <Property Name="Epsilon">0</Property>
+      <Property Name="Increment">1</Property>
+      <Property Name="StartValue">0</Property>
+      <Property Name="SwitchValuesVTXml">&lt;Version&gt;2&lt;/Version&gt;&lt;Count&gt;2&lt;/Count&gt;&lt;RxValue&gt;0&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;0&lt;/TxValue&gt;&lt;RxValue&gt;1&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;1&lt;/TxValue&gt;</Property>
+      <Property Name="SwitchValuesVT">1;2;0/Lower/0;1/Lower/1</Property>
+      <Property Name="SwitchValues">1;2;0;1</Property>
+      <Property Name="SwitchValuesRx">1;2;0;1</Property>
+    </Object>
+    <Property Name="Name">Panel</Property>
+    <Property Name="Size">580, 270</Property>
+    <Property Name="Location">0, 0</Property>
+    <Property Name="BackColor">White</Property>
+  </Object>
+</Panel>

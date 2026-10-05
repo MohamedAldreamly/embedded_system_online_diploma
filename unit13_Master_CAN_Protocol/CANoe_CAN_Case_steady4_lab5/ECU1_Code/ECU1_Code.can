@@ -1,0 +1,28 @@
+﻿
+includes
+{
+  
+}
+
+variables
+{
+    msTimer send_timer;
+    const int timerPeriod = 1000;
+    message ACC_CMD_message ACC_CMD;
+    int variable_ACC = 0;
+}
+
+on start
+{
+    setTimer(send_timer, timerPeriod);
+}
+
+on timer send_timer
+{
+    variable_ACC = @sysvar::ACC_System::ACC_System_VAL;
+    ACC_CMD.ACC_ON.phys = variable_ACC;
+
+    output(ACC_CMD);
+
+    setTimer(send_timer, timerPeriod);
+}
