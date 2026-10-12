@@ -31,6 +31,7 @@ void task1(){
 		Count++;
 		if(Count == 100){
 			MYRTOS_AcquireMutex(&MUTEX1,&Task1);
+			MYRTOS_AcquireMutex(&MUTEX2,&Task1);
 			MYRTOS_ActivateTask(&Task2);//
 			//MYRTOS_ActivateTask(&Task4);
 			//MYRTOS_AcquireMutex(&MUTEX2,&Task1);
